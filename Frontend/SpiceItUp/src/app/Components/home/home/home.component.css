@@ -1,0 +1,81 @@
+
+div.box{
+  padding-left: 10px;
+}
+
+.carousel-inner {
+    width: 100%;
+    height: 60vh;
+}
+.main{
+  padding-top: 19px;
+}
+.column 
+{
+    float: left;
+    width: 10%;
+    padding: 10px;
+    flex: 20%;
+    padding: 4px;
+}
+
+   .row::after 
+  {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .row {
+    display: flex;
+    margin-right: 1px;
+  }
+  
+  .secondRow{
+    height: 50px;
+    width: 100%;
+  }
+h1{
+    background-color: #F5F5DC;;
+    color: black;
+}
+
+.secoundImage{
+  width: 100%;
+  height: 500px;
+  }
+    
+.DetailsCon{
+ padding: 9px;
+ margin: 2px;
+ border:solid;
+ width: 50%;
+}
+.float-start{
+  height: 150px;
+
+}
+  .float-end{
+    float: inline-end;
+  }
+ 
+  .col-md-12{
+    background-color: white;
+  }
+
+  .container {
+    margin: 10px;
+    margin-left: 0px;
+    color: white;
+  }
+
+  .details{
+    margin: 10px;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: -220%;
+    width: 100%;
+    height: 100%;
+  }

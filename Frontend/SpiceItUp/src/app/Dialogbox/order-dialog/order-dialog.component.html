@@ -1,0 +1,30 @@
+  <!-- <p *ngFor="let i of temp">{{i.item_name}}</p> -->
+  <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="example-viewport">
+  <mat-card *ngIf="!noOrders; else noOrdersTemplate">
+    <mat-card-header>
+      <mat-card-title>Order Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-list  *cdkVirtualFor="let i of temp"><br>
+            <mat-list-item sticky><b>Items Name</b> : {{i.item_name}}  </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item><b>Category</b> : {{i.item_type}} </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item><b>Quanity</b> : {{i.quantity}}</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item stickyEnd><b>Price</b> :{{i.price}} </mat-list-item>
+            <mat-divider></mat-divider>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+      <ng-template #noOrdersTemplate>
+        <mat-card>
+          <mat-card-content>
+            <img src="../../../assets/NoOrder.png" style="margin-left: 50px;">
+            <h1>Oops!!! Didn't Ordered anything for this Table.</h1>
+            <button style="margin-top: 40px;" mat-button (click)="onClose()">Close</button>
+          </mat-card-content>
+        </mat-card>
+      </ng-template>
+    </cdk-virtual-scroll-viewport>
+      

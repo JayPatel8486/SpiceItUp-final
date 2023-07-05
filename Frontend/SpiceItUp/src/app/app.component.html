@@ -1,0 +1,24 @@
+<!-- <div style="overflow-x: hidden;">
+    <app-header></app-header>
+    <div class="row">
+       <div class="col-md-2">
+           <app-sidebar></app-sidebar>
+       </div>
+       <div class="col-md-10">
+           <router-outlet></router-outlet>
+       </div>
+    </div>
+ </div> -->
+
+<ngx-ui-loader fgsColor="#F5F5DC"></ngx-ui-loader>
+
+<app-connection-status
+  [onlineStatusMessage]="connectionStatusMessage"
+  [onlineStatus]="connectionStatus"
+>
+</app-connection-status>
+
+<router-outlet></router-outlet>
+
+<!-- <app-menu-admin></app-menu-admin>  -->
+<!-- <app-menu-item></app-menu-item> -->

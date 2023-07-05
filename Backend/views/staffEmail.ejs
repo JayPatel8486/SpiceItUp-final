@@ -1,0 +1,32 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Welcome Email</title>
+  <style>
+    
+    .details {
+      margin: 2px; 
+    }
+    img {
+      align-items: center;
+      width: 30px;
+      height: 30px;
+    }
+
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">SpiceItUp</h1>
+  <h3 style="text-align: center;">Staff credentials</h3>
+  <h2>Hi <%= first_name %>, </h2>
+  <h2> We are delighted to welcome <%= first_name %> to the SpiceItUp!</h2>
+  <p>We are providing login credentials so you can easy access your SpiceItUp account</p>
+  <hr/>
+  <div>
+    <h2 class="details">Email : <%= email %></h2>
+    <h2 class="details">Password : <%= password %></h2>
+  </div>
+    
+</body>
+</html>

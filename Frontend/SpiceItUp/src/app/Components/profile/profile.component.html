@@ -1,0 +1,77 @@
+<div>
+  <app-header></app-header>
+  <div class="row">
+    <div class="col-md-2">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-md-10">
+      <br />
+      <div class="col-md-12">
+        <h1>&nbsp; Profile :</h1>
+      </div>
+      <div class="float-end">
+        <div class="example-button-row col d-flex justify-content-end col-md-12">
+          <button mat-raised-button button color="primary" (click)="updateProfile()">
+            {{toggle ? "Update Profile" : "Cancel"}}</button>&nbsp;
+          <div class="example-button-row col">
+            <a>
+              <button mat-raised-button color="primary" routerLink="/userChangePassword">Change Password</button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <br /><br />
+      <form class="example-form col-md-12" [formGroup]="updateProfileForm">
+        <br />
+
+        <mat-form-field class="example-full-width">
+          <mat-label>First Name : </mat-label>
+          <input matInput [ngStyle]="{'color': 'black' }" name="firstName" ngModel="{{ users.user.first_name }}"
+            formControlName="first_name" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Last Name :</mat-label>
+          <input matInput [ngStyle]="{ color: 'black' }" name="lastName" ngModel="{{ users.user.last_name }}"
+            formControlName="last_name" />
+        </mat-form-field>
+
+        <!-- <mat-form-field class="example-full-width"> -->
+        <label class="Gender">Gender: </label>
+        <mat-radio-group aria-label="Select an option" name="gender" formControlName="gender"
+          ngModel="{{ users.user.gender }}">
+          <mat-radio-button value="Male">Male</mat-radio-button>
+          <mat-radio-button value="Female">Female</mat-radio-button>
+        </mat-radio-group>
+
+        <br><br>
+        <mat-form-field class="example-full-width">
+          <mat-label>Contact No :</mat-label>
+          <input matInput [ngStyle]="{ color: 'black' }" name="contactNo" ngModel="{{ users.user.phone }}"
+            formControlName="phone" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Email :</mat-label>
+          <input matInput [ngStyle]="{'color': 'black' }" name="email" ngModel="{{ users.user.email }}"
+            formControlName="email" />
+        </mat-form-field>
+        <div class="row">
+          <div class="example-button-row col">
+            <button mat-raised-button class="colorchange" color="primary" [disabled]="updateProfileForm.invalid"
+              (click)="btnUpdate()" [hidden]="toggle">
+              Update
+            </button>&nbsp;
+
+            <button mat-raised-button class="colorchange" color="primary" [disabled]="updateProfileForm.invalid"
+              (click)="btndelete()" [hidden]="toggle">
+              Delete
+            </button>
+          </div>
+        </div>
+        <br /><br /><br />
+      </form>
+
+    </div>
+  </div>
+  <br /><br /><br />

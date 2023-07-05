@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+
+  .box{
+    margin: 22px;
+    padding: 22px;
+  }
+
+  button {
+    border-radius: 8px;
+  }

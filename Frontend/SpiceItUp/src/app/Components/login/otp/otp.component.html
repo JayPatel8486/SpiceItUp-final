@@ -1,0 +1,26 @@
+<div class="background vh-100">
+<div class="container">
+  <img src="https://media.istockphoto.com/id/1344841941/vector/blue-verified-account-icon-approved-profile-sign-tick-in-rounded-corners-star-top-page-logo.jpg?s=612x612&w=0&k=20&c=Ys81LaNf8DkzKVvB03y0hDQBkkkP5jrRK9lX4htlfRk=" alt="verification">
+  <h1>Verification</h1>
+  <hr />
+  <br />
+  <p>Please enter the 4-digit verification code that was sent to your email.</p>
+  <form class="example-form" [formGroup]="checkOtp" (ngSubmit)="otp(checkOtp.value)">
+
+    <input type="hidden" name="email" formControlName="email" >
+    
+    <mat-form-field class="example-full-width">
+      <input type="hidden" name="email" formControlName="email" >
+      <mat-label>Otp</mat-label>
+      <input matInput value="" type="text" name="otp" formControlName="otp"/>
+      <mat-error *ngIf="checkOtp.hasError('required', 'otp')">Otp is required</mat-error>
+    </mat-form-field>
+
+    <section>
+      <div class="example-button-row">
+        <button mat-raised-button color="primary" [disabled]="!checkOtp.valid">Submit</button>
+      </div>
+    </section>
+  </form>
+</div>
+</div>

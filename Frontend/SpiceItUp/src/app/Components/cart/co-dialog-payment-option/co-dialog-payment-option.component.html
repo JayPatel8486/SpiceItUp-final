@@ -1,0 +1,21 @@
+<div class="main">
+    <div class="heading">
+        <h1>Process to Pay</h1>
+    </div>
+    <hr>
+    <div class="info">
+        <h1>Payment Information</h1>
+        <h3>Bill Amount : {{data.Total}}</h3>
+    </div>
+    <div class="btn">
+        <button routerLink="/order" class="btn btn-primary" [mat-dialog-close]="true">Cash/Pay on Order</button><br><br>
+        <button class="btn btn-primary"  (click)="makepayment(data.Total)">Pay Online</button>
+    </div>
+
+
+    <p class="text-center" >
+        Authenticate Here:
+        <a [mat-dialog-close]="true" href="{{paymentlink}}" style="text-decoration: solid" target="_blank">Please Confirm Your Payment
+        </a>
+    </p>
+</div>

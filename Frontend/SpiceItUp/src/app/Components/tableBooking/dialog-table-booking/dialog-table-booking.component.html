@@ -1,0 +1,16 @@
+<div class="box">
+    <div mat-dialog-content class="dialog-content">
+        <h2>Your table is booked successfully!!</h2>
+        <div class="information">
+            <h3>Date: {{data.date | date:"fullDate" }}</h3>
+            <h3>Time: {{data.time_slot}} O'clock (for 1 hour)</h3>
+            <h3>Table: {{data.table}}</h3>
+        </div>
+
+    </div>
+    <div mat-dialog-actions class="dialog-action">
+        <button mat-raised-button color="primary" routerLink="/order" [mat-dialog-close]="true">Skip Order</button>
+        <button mat-raised-button cdkFocusInitial color="primary" routerLink="/menu" [mat-dialog-close]="true">Order
+            Menu</button>
+    </div>
+</div>

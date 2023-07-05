@@ -1,0 +1,137 @@
+/* .logo{
+/* .logo{
+    width: 90px;
+    float: left;
+}
+.header{
+    height: 90px;
+    background-color: #F5F5DC;
+   
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    background-color: #F5F5DC;
+   
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    position: static;
+}
+.profile{
+    float:right; 
+    font-size: large;
+        
+}
+
+h1{
+   
+   
+    padding-top: 30px;
+    padding-left: 30px;
+   
+    font-family:cursive;
+    font-size: 40px;
+    margin-left: 14%;
+    color: #3a3a2d
+   
+    font-family:cursive;
+    font-size: 40px;
+    margin-left: 14%;
+    color: #3a3a2d
+
+}
+
+
+button{
+    float: auto;
+    padding-top: 0%;
+    margin-top: 30px;
+    margin-left: 15px;
+    margin-right: 22px;
+    font-size: large;  
+}
+
+ */
+
+a {
+  color: white;
+  font-family: Lato;
+}
+
+main {
+  flex: 1;
+}
+
+mat-card {
+  margin-bottom: 4px;
+}
+
+mat-toolbar {
+  overflow: hidden;
+  width: 100%;
+  min-width: 475px;
+  /* padding: 10px 20px 10px 10px; */
+  font-size: 20px;
+  position: relative;
+  color: #FFF;
+  z-index: 1;
+}
+
+mat-toolbar:after {
+  color: white;
+  box-shadow: 5px 10px #888888;
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 25%;
+  min-width: 200px;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  background: #333;
+  transform-origin: bottom left;
+  -ms-transform: skew(-30deg, 0deg);
+  -webkit-transform: skew(-30deg, 0deg);
+  transform: skew(-30deg, 0deg);
+}
+
+.loginSection {
+  z-index: 3;
+  position: relative;
+  widows: 100%;
+  float: inline-end;
+
+}
+
+.loginSection::after {
+  z-index: 3;
+  position: relative;
+  widows: 100%;
+
+}
+
+a {
+  text-decoration: none;
+  font-family: 'muli';
+}
+
+.btn {
+  font-size: 18px;
+  color: #F5F5DC;
+  border: 1px solid #F5F5DC;
+}
+
+.btn:hover {
+  background-color: #F5F5DC;
+  color: black;
+  border: 1px solid #F5F5DC;
+}
+
+
+
+@media screen and (max-width: 633px) {
+  a{
+    /* color: black; */
+    font-size: 15px;
+    letter-spacing: -0.7px;
+    margin-left: -15px;
+  }
+
+}

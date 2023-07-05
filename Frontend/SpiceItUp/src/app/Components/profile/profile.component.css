@@ -1,0 +1,32 @@
+.example-form {
+  min-width: 150px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+ 
+}
+a{
+  text-decoration: none;
+  
+}
+
+h1{
+  color: #2D2424;
+  background-color:#3F51B5;
+  color: white;
+}
+
+div button{
+  background-color: #3F51B5;
+  color: white;
+  border-color: white;
+  
+}
+
+button.colorchange[disabled]{
+border: 1px solid #999999;
+background-color: #cccccc;
+color:black;
+}

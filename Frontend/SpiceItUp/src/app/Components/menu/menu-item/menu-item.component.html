@@ -1,0 +1,77 @@
+<div>
+  <app-header></app-header>
+  <div class="row">
+    <div class="col-md-2">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-md-10">
+      <router-outlet></router-outlet>
+
+      <!-- <div>
+        <h2>Food Items</h2>
+        <select (change)="onOriginCategorySelected($event)">
+          <option value="">All Categories</option>
+          <option *ngFor="let category of originCategories" [value]="category">{{ category }}</option>
+        </select>
+      </div> -->
+
+
+
+
+      <nav class="navbar navbar-expand-lg 10px">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
+          aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation"
+          (click)="isCollapsed = !isCollapsed">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor03" [ngbCollapse]="isCollapsed">
+          <ul class="navbar-nav mr-auto">
+            <li class="item">
+              <a (click)="AllItemFilter()">All</a>
+            </li>
+            <li routerLinkActive="active" class="item" *ngFor="let category of headerMenu" [value]="category">
+              <a (click)="onOriginCategorySelected(category)">{{ category }}</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="abc"></div>
+      <div class="container">
+        <div class="row">
+          <ng-container *ngFor="let items of filteredFoodItems">
+            <div class="card col-md-3">
+              <img src="{{ url }}{{ items.image_url }}" alt=".................." />
+              <div class="box">
+                <span class="float-start" style="font-weight: bold; font-size: 18px">{{ items.item_name }}</span>
+                <span class="float-end" style="font-weight: 500; font-size: 18px">&#8377;{{ items.price }}</span><br />
+                <h5 class="des">{{ items.description }}</h5>
+                <button mat-raised-button class="btn" (click)="addtoCart(items)" style="
+                    width: 100%;
+                    height: 30px;
+                    background-color: #3f51b5;
+                    color: white;
+                  ">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+
+
+
+      <!-- add to cart icon -->
+
+      <div class="example-button-container">
+        <button routerLink="/cart" mat-fab color="primary">
+          <mat-icon matBadge="{{ totalItem }}" matBadgeColor="warn">shopping_cart</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,51 @@
+.addproduct {
+  position: absolute;
+  right: 30px;
+  top: 20px;
+}
+
+.box {
+  padding: 30px;
+}
+
+table {
+  width: 100%;
+ 
+}
+
+table,
+th,
+td {
+  border: 1px solid rgb(199, 193, 193);
+  border-collapse: collapse;
+}
+
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-column-description {
+  width: 40%;
+}
+
+td,
+th {
+  width: 10%;
+}
+
+.image {
+  width: 120px;
+  height: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+

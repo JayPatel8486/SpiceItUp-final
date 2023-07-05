@@ -1,0 +1,47 @@
+.img-fluid1 {
+  height: 25vw;
+}
+
+.img-fluid2 {
+  height: 20vw;
+}
+
+.img-fluid1:hover {
+  transition: 0.5s ease-in-out;
+  transform: scale(1.05);
+}
+
+.img-fluid2:hover {
+  transition: 0.5s ease-in-out;
+  transform: scale(1.05);
+}
+
+img.img-fluid {
+  height: 300px;
+  width: 250px;
+}
+
+img.img-fluid:hover {
+  -ms-transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.container {
+  padding-top: 10px;
+  color: rgb(39, 38, 38);
+}
+
+nav {
+  padding-bottom: 10px;
+}
+
+.googlemap {
+  padding-left: 73%;
+  padding-bottom: 0%;
+}
+
+.address {
+  margin-left: 25%;
+  margin-bottom: -18%;
+}

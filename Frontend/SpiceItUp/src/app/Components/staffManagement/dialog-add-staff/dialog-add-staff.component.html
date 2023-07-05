@@ -1,0 +1,70 @@
+<div mat-dialog-content class="dialog-content">
+
+    <form [formGroup]="addStaffForm">
+
+        <h1 style=" text-align: center">Add new Staff</h1>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput type="text" name="first_name" formControlName="first_name">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" name="last_name" formControlName="last_name">
+        </mat-form-field>
+
+        <label appearance="outline">Gender: </label>
+        <mat-radio-group aria-label="Select an option" name="gender" formControlName="gender">
+            <mat-radio-button value="Male">Male</mat-radio-button>
+            <mat-radio-button value="Female">Female</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Phone number</mat-label>
+            <input matInput value="" type="number" name="phone" formControlName="phone">
+            <mat-error *ngIf="addStaffForm.hasError('pattern', 'phone')">phone number is invalid!!</mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput value="" type="email" name="email" formControlName="email" >
+            <mat-error *ngIf="addStaffForm.hasError('pattern', 'email')">Email is invalid!!</mat-error>
+        </mat-form-field>  
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" oncopy="return false" onpaste="return false" oncut="return false"/>
+            <mat-icon mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </mat-icon>
+            <mat-error *ngIf="addStaffForm.hasError('minlength', 'password')">Password must be at least 4 characters</mat-error>
+
+        </mat-form-field>
+
+        
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Confirm password</mat-label>
+            <input matInput [type]="hides ? 'password' : 'text'" name="confirm_password"
+                formControlName="confirm_password" onpaste="return false">
+            <mat-icon mat-icon-button matSuffix (click)="hides = !hides" [attr.aria-label]="'hide confirm_password'"
+                [attr.aria-pressed]="hides">
+                <mat-icon>{{ hides ? "visibility_off" : "visibility" }}</mat-icon>
+            </mat-icon>
+            <mat-error *ngIf="f['confirm_password'].errors && f['confirm_password'].errors['ConfirmedValidator']">Passwords must match</mat-error>
+        </mat-form-field>
+
+
+
+        <div mat-dialog-actions [align]="'end'">
+            <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+            <button mat-raised-button color="primary" (click)="addstaff()" [disabled]="addStaffForm.invalid"
+                [mat-dialog-close]="true">Save</button>
+
+        </div>
+
+    </form>
+</div>

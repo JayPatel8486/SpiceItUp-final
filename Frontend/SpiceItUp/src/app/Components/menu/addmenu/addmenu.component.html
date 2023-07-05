@@ -1,0 +1,47 @@
+<form [formGroup]="menuForm" (ngSubmit)="postProduct(menuForm.value)">
+
+    <h1 style=" text-align: center">{{head}}</h1>
+
+    <div mat-dialog-content>
+        <mat-form-field appearance="outline">
+            <mat-label>Item Category</mat-label>
+            <mat-select formControlName="item_type" placeholder="item category">
+                <mat-option value="Starter">Starter</mat-option>
+                <mat-option value="Gujarati">Gujarati</mat-option>
+                <mat-option value="Punjabi">Punjabi</mat-option>
+                <mat-option value="South Indian">South Indian</mat-option>
+                <mat-option value="Italian">Italian</mat-option>
+                <mat-option value="Sweet">Sweet</mat-option>
+                <mat-option value="Cocktails">Cocktails</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Item Name</mat-label>
+            <input matInput placeholder="item name" formControlName="item_name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Price</mat-label>
+            <input matInput type="number" placeholder="price" formControlName="price">
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="description" formControlName="description"></textarea>
+        </mat-form-field>
+
+        <span> Select Image
+            <input type="file" class="file-upload" (change)="selectFiles($event)" name="image" id="myFile"
+                formControlName="image" />
+        </span>
+
+
+    </div>
+
+    <div mat-dialog-actions [align]="'end'">
+        <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+        <button mat-raised-button color="primary" [disabled]="!menuForm.valid">{{actionBtn}}</button>
+    </div>
+</form>

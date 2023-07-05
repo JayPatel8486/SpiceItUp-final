@@ -1,0 +1,23 @@
+.dialog-content {
+    margin-top: 4%;
+    
+}
+
+h2, h3 {
+    color: black;
+}
+
+h2 {
+    text-align: center;
+}
+
+.information {
+    margin-top: 8%;
+    margin-left: 3%;
+}
+
+.dialog-action {
+    margin-left: 28%;
+    padding-top: 1%;
+}
+

@@ -1,0 +1,152 @@
+.card {
+  margin: 30px;
+  padding: 10px;
+  height: 43vb;
+  width: 45vb;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 3px 5px 23px 4px #6476df
+}
+
+
+.card img {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 15px;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.card img:hover {
+  transition: 0.5s ease-in-out;
+  transform: scale(1.05);
+}
+
+div.card img {
+  height: 63%;
+}
+
+.btn {
+  background-color: rgb(28, 109, 216);
+  color: white;
+  font-size: small;
+}
+
+.abc {
+  margin-top: 35px;
+}
+
+.des {
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100ch;
+  padding-top: 5px;
+}
+
+
+
+.item {
+  margin: 0px 15px;
+  text-align: center;
+
+}
+
+.item a:hover {
+  color: rgb(88, 88, 124)
+}
+
+.navbar {
+  --bs-navbar-color: rgb(255, 255, 255);
+  --bs-navbar-hover-color: rgb(156, 241, 252);
+  width: 100%;
+  background-color: #ddffff;
+
+  font-size: larger;
+}
+
+div.container {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: rgb(0, 0, 0);
+}
+
+.navbar-toggler {
+  color: rgb(19, 11, 19);
+  background-color: #3f51b5;
+}
+
+.navbar-toggler-icon {
+  color: rgb(222, 243, 243);
+}
+
+.example-button-container {
+  position: fixed;
+  right: 10px;
+  bottom: 20px;
+}
+
+span.spacer{
+  color: red;
+  font-size: 18px;
+  font-weight: 600;
+  float: right;
+  text-align: end;
+  margin: 1%;
+
+}
+
+/* heading */
+
+.item {
+  margin: 0px 15px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.item a:hover {
+  color: black;
+}
+
+.navbar {
+  --bs-navbar-color: rgb(255, 255, 255);
+  --bs-navbar-hover-color: rgb(156, 241, 252);
+  width: 100%;
+  background-color: #3f51b5;
+  font-size: larger;
+  margin-top: 20px;
+}
+
+div.container {
+  margin: 0;
+  padding: 0;
+}
+
+
+.navbar a {
+  color: rgb(255, 255, 255);
+}
+
+.navbar-toggler {
+  color: rgb(19, 11, 19);
+  background-color: rgb(195, 223, 223);
+}
+
+.navbar-toggler-icon {
+  color: rgb(222, 243, 243);
+}
+
+
+.example-button-container {
+  position: fixed;
+  right: 10px;
+  bottom: 30px;
+}
+
+.pagination {
+  justify-content: center;
+}

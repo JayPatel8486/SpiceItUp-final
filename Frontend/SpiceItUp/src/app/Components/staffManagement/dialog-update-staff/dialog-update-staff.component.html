@@ -1,0 +1,41 @@
+<div mat-dialog-content class="dialog-content">
+
+    <form [formGroup]="updateStaffForm">
+
+        <h1 style=" text-align: center">Update Staff Details</h1>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput type="text" name="first_name" formControlName="first_name">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" name="last_name" formControlName="last_name">
+        </mat-form-field>
+
+        <label appearance="outline">Gender: </label>
+        <mat-radio-group aria-label="Select an option" name="gender" formControlName="gender">
+            <mat-radio-button value="Male">Male</mat-radio-button>
+            <mat-radio-button value="Female">Female</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Phone number</mat-label>
+            <input matInput value="" type="number" name="phone" formControlName="phone">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput value="" type="email" name="email" formControlName="email">
+        </mat-form-field>
+
+        <div mat-dialog-actions [align]="'end'">
+            <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+            <button mat-raised-button color="primary" (click)="updatestaff()" [disabled]="updateStaffForm.invalid"
+                [mat-dialog-close]="true">Update</button>
+
+        </div>
+
+    </form>
+</div>

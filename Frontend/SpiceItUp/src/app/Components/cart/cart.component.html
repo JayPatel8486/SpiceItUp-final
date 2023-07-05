@@ -1,0 +1,95 @@
+<div>
+    <app-header></app-header>
+    <div class="row">
+        <div class="col-md-2">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-md-10">
+
+
+
+            <ng-container *ngIf="products.length !=0">
+
+                <h3 class="heading">My cart</h3>
+                <div class="container">
+                    <div class="card-table">
+                        <div class="cart-product">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No</th>
+                                        <th>Item Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of products; let i = index">
+                                        <td style="width: 10%;">{{i+1}}</td>
+                                        <td style="width: 20%;">{{item.item_name}}</td>
+                                        <td style="width: 20%;">{{item.price}}</td>
+
+                                        <td style="width: 20%;">
+                                            <button class="btn btn-primary btn-sm" (click)="decrement(i)"
+                                                (click)="Total()">-</button>
+                                            <span> {{counters[i]}} </span>
+                                            <button class="btn btn-primary btn-sm" (click)="increment(i,item)"
+                                                (click)="Total()">+</button>
+                                        </td>
+                                        <td style="width: 20%;">{{(item.price)*counters[i]}}</td>
+                                        <ng-container matColumnDef="action">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                                            <button (click)="removeItem(item)" (click)="Total()" mat-icon-button
+                                                color="warn">
+                                                <mat-icon>delete</mat-icon>
+                                            </button>
+
+                                        </ng-container>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td>
+
+                                            <button class="btn btn-danger" (click)="emptyCart()">Empty Cart</button>
+                                        </td>
+                                        <td> <button routerLink="/menu" class="btn btn-primary">Add More</button></td>
+                                        <td> <button class="btn btn-success" style (click)="Total()"
+                                                (click)="addDB(products)" (click)="openDialog()" [(ngModel)]="Payment">Checkout</button></td>
+                                        <td><strong>Grand Total:&#8377;{{totalprice}}</strong></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </ng-container>
+
+
+            <ng-container *ngIf="products.length ==0">
+                <div class="container">
+                    <div class="card">
+                        <h3 class="card-title" style="text-align: center; font-size: 20px;"> My Cart</h3>
+                    </div>
+                    <div class="center">
+                        <img src="../../../assets/bag.svg" alt="">
+                        <h2>Your cart is empty!</h2>
+                        <h4>Add item to it now</h4>
+
+                        <div class="example-button-row">
+                            <button mat-raised-button color="primary" routerLink="/menu" class="addmenubtn">Add
+                                menu</button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

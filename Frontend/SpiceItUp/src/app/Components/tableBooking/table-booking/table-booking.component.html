@@ -1,0 +1,66 @@
+<div style="overflow-x: hidden;">
+    <app-header></app-header>
+    <div class="row">
+        <div class="col-md-2">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-md-10">
+
+            <div class="image">
+                <img class="img-responsive" src="../../../../assets/table_booking.jpeg" alt="table_image">
+            </div>
+
+            <div class="container">
+
+                <h2 class="font">Table booking</h2>
+                <form [formGroup]="tablebookingform" (ngSubmit)="book(tablebookingform.value)">
+
+                    <mat-form-field class="example-full-width" appearance="fill" sticky>
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput formControlName="date" name="date" [matDatepicker]="picker" [min]="minDate"
+                            [max]="maxDate" placeholder="MM/DD/YYYY" (dateInput)="toggleDisable()" required>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDatepickerApply (click)="onAdded()">Apply</button>
+                          </mat-datepicker-actions>
+                        </mat-datepicker>
+                    </mat-form-field><br>
+
+                    <mat-form-field appearance="fill" class="example-full-width" matInput>
+                        <mat-label>Select Time-slot</mat-label>
+                        <mat-select formControlName="time_slot" name="time_slot" required>
+                            <mat-option *ngFor="let time of times" [value]="time.value" (click)="onAdded()"
+                                [disabled]='disableTextbox'>{{time.viewValue}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="tablebookingform.hasError('required', 'date')">
+                            Please select date first!</mat-error>
+                    </mat-form-field><br>
+
+                    <mat-form-field appearance="fill" class="example-full-width">
+                        <mat-label>Select Table</mat-label>
+                        <mat-select formControlName="table" name="table" required>
+                            <mat-option *ngFor="let dat of data" [value]="dat">Table No.- {{dat}}</mat-option>
+                        </mat-select>
+                    </mat-form-field><br>
+
+                    <mat-form-field appearance="fill" class="example-full-width">
+                        <mat-label>Special requests</mat-label>
+                        <textarea matInput #input formControlName="request" name="request" maxlength="100"
+                            placeholder=""></textarea>
+                        <mat-hint align="end">{{input.value.length}}/100</mat-hint>
+                    </mat-form-field>
+
+                    <div class="buttonHolder">
+                        <button mat-raised-button color="primary" type="submit" class="bnt" (click)="openDialog()"
+                            [disabled]="tablebookingform.invalid"> <span>Book Table</span></button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>

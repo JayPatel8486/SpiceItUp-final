@@ -1,0 +1,65 @@
+
+a {
+    color: white;
+    font-family: Lato;
+  }
+  
+  main {
+    flex: 1;
+  }
+  
+  mat-card {
+    margin-bottom: 4px;
+  }
+  
+  mat-toolbar {
+    overflow: hidden;
+      width: 100%;
+      min-width: 475px;
+      padding: 10px 20px 10px 10px;
+      font-size: 20px;
+      position: relative;
+      color: #FFF;
+      z-index: 1;
+      height: 7%;
+
+  }
+  
+  mat-toolbar:after {
+    color: white;
+    box-shadow: 5px 10px #888888;
+    content: " ";
+    position: absolute;
+    display: block;
+    width: 25%;
+    min-width: 200px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    background: #333;
+    transform-origin: bottom left;
+    -ms-transform: skew(-30deg, 0deg);
+    -webkit-transform: skew(-30deg, 0deg);
+    transform: skew(-30deg, 0deg);
+  }
+  
+  .loginSection {
+    z-index: 3;
+    position: relative;
+    widows: 100%;
+  }
+  .loginSection::after {
+    z-index: 3;
+    position: relative;
+    widows: 100%;
+  }
+  a{
+    text-decoration: none;
+    font-family: 'muli';
+
+  }
+  .fixed{
+    position: absolute;
+    bottom: 0px;
+  }
