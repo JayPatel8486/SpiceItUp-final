@@ -22,7 +22,8 @@ export class ForgotPasswordComponent implements OnInit{
   hide = true;
   nametodisplay:any
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  
+  userdata:any
+  name:any
   matcher = new MyErrorStateMatcher();
   data: any;
 
@@ -41,15 +42,8 @@ export class ForgotPasswordComponent implements OnInit{
   get email(){
     return this.forgotForm.get('email')?.value
   }
-
-  
-  
-  
-  userdata:any
-  name:any
   
   forgoted(data:any){
-
     this.forgotpasswordservice.forgotPassword(data).subscribe({
       next: (result)=>{
         this.userdata = result

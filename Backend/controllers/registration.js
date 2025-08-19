@@ -3,27 +3,22 @@ const bcrypt = require("bcrypt");
 
 const postRegister = async (req, res) => {
   try {
-    const password = req.body.password;
-    const confirm_password = req.body.confirm_password;
-    if (password === confirm_password) {
-      let customerReg_add = await registrationDetails({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        gender: req.body.gender,
-        phone: req.body.phone,
-        email: req.body.email,
-        password: await bcrypt.hash(req.body.password, 12)
-      });
+    const { password, confirm_password } = req.body;
 
-      const registered = await customerReg_add.save();
-      res.status(201).send(registered);
-
+    if (password !== confirm_password) {
+      res.status(400).send({ message: "Password and confirm password is not matched" })
     }
+    let customerReg_add = await registrationDetails({
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      gender: req.body.gender,
+      phone: req.body.phone,
+      email: req.body.email,
+      password: await bcrypt.hash(req.body.password, 12)
+    });
 
-    else {
-      res.status(400).send("Password not matched");
-    }
-    
+    const registered = await customerReg_add.save();
+    res.status(201).send(registered);
   } catch (e) {
     res.status(500).send(e);
   }

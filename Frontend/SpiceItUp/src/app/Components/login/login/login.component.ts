@@ -76,34 +76,33 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.loginForm?.value;
     this.loginCheck.loginForm({ email, password }).subscribe({
       next: (result: any) => {
-        const { useremail, token, expiresIn } = result;
-        this.userdata = useremail;
+        console.log(result.data);
+        const { user } = result.data;
+        const { token } = result.data;
+        this.userdata = user;
         console.log(this.userdata);
         if (this.userdata.email && this.userdata.password) {
-          // const expiresInDuration = expiresIn;
-          // console.log("id",useremail._id);
-          // console.log("timeout",expiresInDuration);
-          // this.tokenTimer = setTimeout(()=>{
-          //   this.onLogOut()
-          // }, expiresInDuration*1000);
-
+          console.log(user._id);
           localStorage.setItem('loginUser', token);
-          localStorage.setItem('userId', useremail._id);
-          localStorage.setItem('userRole', useremail.user_role);
+          localStorage.setItem('userId', user._id);
+          localStorage.setItem('userRole', user.user_role)
           this.router.navigate(['home']);
           this.toastr.success('Login successfull', '', {
-            timeOut: 1000,
-            progressBar: true,
-            progressAnimation: 'increasing',
+            timeOut: 1000, progressBar: true, progressAnimation: 'increasing',
           });
         }
       },
-      error: () => {
-        this.toastr.error('Invalid login details', '', {
-          timeOut: 1000,
-          progressBar: true,
-          progressAnimation: 'increasing',
-        });
+      error: (err) => {
+        if (err.error.message === "Invalid password") {
+        this.toastr.error(`The email or password is incorrect. Account will lock after ${err.error.remainAttempt - 1} incorrect attempts(s).`, '' ,{
+          timeOut: 1000, progressBar: true, progressAnimation: 'increasing'
+        })
+        }
+        else { 
+          this.toastr.error(err.error.message, '', {
+            timeOut: 1000, progressBar: true, progressAnimation: 'increasing',
+          });
+        }
       },
     });
   }

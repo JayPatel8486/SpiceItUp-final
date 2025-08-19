@@ -7,7 +7,7 @@ const ejs = require('ejs');
 
 const updatePassword = async (req, res) => {
   try {
-    const email = req.body.email;
+    const { email } = req.body;
     const useremail = await register.findOne({ email: email });
     if (useremail) {
       let otpCode = Math.floor(Math.random() * 300000);
@@ -31,7 +31,7 @@ const updatePassword = async (req, res) => {
               subject: "Reset Password",
               html: data
             };
-      
+      ''
             transport.sendMail(mailOptions, (error, info) => {
               if (error) {
                 return console.log(error);
@@ -94,6 +94,7 @@ const changePassword = async (req, res) => {
         {
           $set: { 
             password: hashPassword,
+            loginCount: 0
           },
         }
       );

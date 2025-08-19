@@ -26,7 +26,8 @@ const registrationSchema = Schema([{
     phone:{
         type:String,
         required:true,
-        min:10
+        min:10,
+        unique:true
     },
 
     email:{ 
@@ -78,6 +79,9 @@ const registrationSchema = Schema([{
 
     date:{
         type:Date
+    },
+    loginCount: {
+        type: Number,
     }
 }]);
 
