@@ -6,7 +6,15 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   constructor() { }
-  isLoggedIn(){
+  isLoggedIn() {
     return !!localStorage.getItem('loginUser');
+  }
+
+  isOtpRequired() {
+    return !!localStorage.getItem('userId') && !localStorage.getItem('loginUser');
+  }
+
+  isForgotPasswordOTP() {
+    return !!localStorage.getItem('forgot_password');
   }
 }

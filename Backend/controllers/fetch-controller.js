@@ -1,5 +1,5 @@
 const Booking_model = require('../models/booking') //Import Table_Order Model
-const Order_model=require('../models/order')//Import Order Model
+const Order_model = require('../models/order')//Import Order Model
 
 //Get All Table Booking API
 const getAllTableOrders = async (req, res) => {
@@ -9,17 +9,17 @@ const getAllTableOrders = async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-}; 
+};
 
 
 //Get Order for Table API
 const getOrders = async (req, res) => {
-  const booking_id=req.params.id;
-  const tableOrder = await Order_model.find({booking_id});
-    if (!tableOrder) {
-      res.status(404).json({ error: 'Order By Id Not Found' });
-    }
-    else{
+  const booking_id = req.params.id;
+  const tableOrder = await Order_model.find({ booking_id });
+  if (!tableOrder) {
+    res.status(404).json({ error: 'Order By Id Not Found' });
+  }
+  else {
     res.status(200).json(tableOrder);
   }
 };
@@ -111,4 +111,4 @@ const feedback = async (req, res) => {
 }
 
 //Exports Module
-module.exports = { getAllTableOrders, UpdateTableStatus, feedback, getOrderByUserId, CancelTableOrder,getOrders,Ordered }
+module.exports = { getAllTableOrders, UpdateTableStatus, feedback, getOrderByUserId, CancelTableOrder, getOrders, Ordered }

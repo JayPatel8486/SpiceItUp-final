@@ -6,15 +6,27 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 background-color: #2D2424;
 } */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #F5F5DC;}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #e8e8e3;
+}
 
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import 'ngx-toastr/toastr';
-@import url('https://fonts.googleapis.com/css?family=Muli:400,700');
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "ngx-toastr/toastr";
+@import url("https://fonts.googleapis.com/css?family=Muli:400,700");

@@ -1,0 +1,66 @@
+<div class="background vh-100">
+  <div class="container">
+    <img
+      class="logo"
+      src="../../../../assets/Spice It Up.png"
+      alt=" Home-Spice it up "
+    />
+    <h1>Login</h1>
+    <hr />
+    <br />
+    <form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          value=""
+          type="email"
+          name="email"
+          formControlName="email"
+        />
+        <mat-error *ngIf="loginForm.hasError('pattern', 'email')"
+          >Email is invalid!!</mat-error
+        >
+        <mat-error *ngIf="loginForm.touched">Email is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Enter your password</mat-label>
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          formControlName="password"
+          name="password"
+        />
+        <mat-icon
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </mat-icon>
+        <mat-error *ngIf="loginForm.hasError('minlength', 'password')"
+          >Password must be at least 4 characters</mat-error
+        >
+      </mat-form-field>
+      <a class="forgot" routerLink="./forgotPassword">Forgot Password ?</a
+      ><br />
+      <section>
+        <div class="example-button-row">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!loginForm.valid"
+          >
+            Login
+          </button>
+        </div>
+      </section>
+      <br />
+
+      <a routerLink="./Registration">Don't have an account ? Register</a>
+    </form>
+  </div>
+</div>

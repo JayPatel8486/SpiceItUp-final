@@ -1,6 +1,7 @@
 const register = require('../models/regSchema');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const sendOTP = require('./forgotPassword')
 
 const login = async (req, res) => {
     try {
@@ -32,9 +33,10 @@ const login = async (req, res) => {
             return res.status(400).json({ message: "Invalid password", remainAttempt: 5 - user.loginCount })
         }
         let data;
-        const token = jwt.sign({ email: email }, process.env.SECRET_KEY, { expiresIn: "4h" });
+        // const token = jwt.sign({ email: email }, process.env.SECRET_KEY, { expiresIn: "4h" });
         data = { user };
-        data.token = token;
+        // data.token = token;
+        let otpResponse = await sendOTP.updatePassword(req, res)
         await register.updateOne(
             { email: datas },
             {
@@ -44,8 +46,9 @@ const login = async (req, res) => {
             }
         );
         res.status(200).json({
-            message: "Login successful",
-            data
+            message: `OTP send to ${email}`,
+            data,
+            otpResponse
         });
     } catch (err) {
         console.error("Login error:", err);

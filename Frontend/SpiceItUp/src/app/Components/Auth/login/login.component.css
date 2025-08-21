@@ -33,7 +33,7 @@ input.example-right-align {
   border-radius: 20px;
   text-align: center;
   padding: 16px;
-  box-shadow: 0 5px 5px 0 rgb(0, 0, 0);
+  box-shadow: 0 8px 20px 0 rgb(0, 0, 0);
   max-width: 35%;
 }
 

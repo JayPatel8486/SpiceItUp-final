@@ -5,7 +5,7 @@
   }
   
   .example-full-width {
-    width: 100%;
+    width: 110%;
   }
   .example-container mat-form-field + mat-form-field {
     margin-left: 8px;
@@ -28,19 +28,45 @@
    background-color: rgb(235, 234, 232);
    display: inline-block;
    margin-left: 33.33%;
-   margin-top: 12%;
+   margin-top: 0.5%;
    border-radius: 20px;
    text-align: center;
-   padding: 22px;
-   box-shadow: 0 5px 5px 0 rgb(0, 0, 0);
+   box-shadow: 0 5px 20px 0 rgb(0, 0, 0);
    max-width: 35%;
-  }
-  
-  img{
-    width: 28%;
-    height: 22%;
+   max-height: 97%;
+   padding-bottom: 6px;
+   padding-left: 1.1%;
   }
 
+  .mat-mdc-radio-button ~ .mat-mdc-radio-button {
+    margin-left: 56px;
+  }
+
+  .Gender {
+    display: block;
+    text-align: left;
+    font-size: 17px;
+    color: rgb(82, 77, 70);
+  }
+
+  mat-radio-group {
+    display: flex;
+    padding: 10px;
+  }
+
+  .logo {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    width: 22%;
+    padding-bottom: 20px;
+    margin-bottom: -3%;
+  }
+  
+  .btn{
+    margin-top:-10px;
+    margin-bottom: 4px;
+  }
 
 
   @media screen and (max-width: 500px) {
@@ -48,8 +74,10 @@
 
     .container {
       max-width: 65%;
-      margin-left: 20%;
-      margin-top: 27%;
+      margin-left: 17%;
+      margin-top: 4%;
+      margin-bottom: 4%;
     }
   
   }
+  

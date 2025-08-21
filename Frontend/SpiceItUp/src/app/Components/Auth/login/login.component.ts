@@ -58,6 +58,12 @@ export class LoginComponent implements OnInit {
   }
   loginForm: FormGroup = new FormGroup({});
   ngOnInit(): void {
+    if(!localStorage.getItem('loginUser')) {
+      localStorage.clear()
+    }
+    if(localStorage.getItem('loginUser')) {
+      this.router.navigate(['home'])
+    }
     this.loginForm = this.fb.group({
       email: [
         '',
@@ -74,20 +80,25 @@ export class LoginComponent implements OnInit {
 
   login() {
     const { email, password } = this.loginForm?.value;
-    this.loginCheck.loginForm({ email, password }).subscribe({
+    this.loginCheck.loginForm({ email, password, route: "login" }).subscribe({
       next: (result: any) => {
-        console.log(result.data);
+        console.log(result);
         const { user } = result.data;
-        const { token } = result.data;
+        const {token} = result.data
         this.userdata = user;
-        console.log(this.userdata);
         if (this.userdata.email && this.userdata.password) {
           console.log(user._id);
-          localStorage.setItem('loginUser', token);
           localStorage.setItem('userId', user._id);
-          localStorage.setItem('userRole', user.user_role)
-          this.router.navigate(['home']);
-          this.toastr.success('Login successfull', '', {
+          localStorage.setItem('userRole', user.user_role);        
+          this.router.navigate(['otp'], { 
+            queryParams: { 
+              email: result.otpResponse.email,  
+            },
+            state: { 
+              route: "login" 
+            }
+          });
+          this.toastr.success(`OTP send to ${result.email}`, '', {
             timeOut: 1000, progressBar: true, progressAnimation: 'increasing',
           });
         }

@@ -29,10 +29,6 @@ const addBookingDetails = async (req, res) => {
 
 };
 
-
-
-
-
 // Get timestamp and send table list
 const checkAvailableBooking = async (req, res) => {
 
@@ -47,8 +43,6 @@ const checkAvailableBooking = async (req, res) => {
 
         const Availabletables = totalTables.filter(t => !tables.includes(t));
 
-
-
         if (Availabletables) {
             res.status(200).send(Availabletables);
             console.log("availabel talbes", Availabletables);
@@ -62,8 +56,6 @@ const checkAvailableBooking = async (req, res) => {
         res.status(500).send({ "error": "Something went wrong!" });
     }
 }
-
-
 
 // Get all bookings
 const getBookingDetails = async (req, res) => {

@@ -2,10 +2,10 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './Components/login/login/login.component';
-import { RegistrationComponent } from './Components/login/registration/registration.component';
-import { ForgotPasswordComponent } from './Components/login/forgot-password/forgot-password.component';
-import { PageNotFoundComponent } from './Components/login/page-not-found/page-not-found.component';
+import { LoginComponent } from './Components/Auth/login/login.component';
+import { RegistrationComponent } from './Components/Auth/registration/registration.component';
+import { ForgotPasswordComponent } from './Components/Auth/forgot-password/forgot-password.component';
+import { PageNotFoundComponent } from './Components/Auth/page-not-found/page-not-found.component';
 import { TableBookingComponent } from './Components/tableBooking/table-booking/table-booking.component';
 import { DialogTableBookingComponent } from './Components/tableBooking/dialog-table-booking/dialog-table-booking.component';
 import { OrderComponent } from './Components/order/order/order.component';
@@ -38,8 +38,8 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatBadgeModule } from '@angular/material/badge';
-import { OtpComponent } from './Components/login/otp/otp.component';
-import { ChangePasswordComponent } from './Components/login/change-password/change-password.component';
+import { OtpComponent } from './Components/Auth/otp/otp.component';
+import { ChangePasswordComponent } from './Components/Auth/change-password/change-password.component';
 import { CartComponent } from './Components/cart/cart.component';
 import { MenuStaffComponent } from './Components/menu-staff/menu-staff.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -50,16 +50,16 @@ import { ToastrModule } from 'ngx-toastr';
 import { StaffManagementComponent } from './Components/staffManagement/staff-management/staff-management.component';
 import { DialogAddStaffComponent } from './Components/staffManagement/dialog-add-staff/dialog-add-staff.component';
 import { DialogUpdateStaffComponent } from './Components/staffManagement/dialog-update-staff/dialog-update-staff.component';
-import { NgxUiLoaderModule , NgxUiLoaderHttpModule } from "ngx-ui-loader";
-import {MatDividerModule} from '@angular/material/divider';
-import {MatListModule} from '@angular/material/list';
+import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from "ngx-ui-loader";
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 
 import { CustomerOrderComponent } from './Components/order/customer-order/customer-order.component';
 import { ConfirmationDialogComponent } from './Dialogbox/confirmation-dialog/confirmation-dialog.component';
 import { FeedbackDialogComponent } from './Dialogbox/feedback-dialog/feedback-dialog.component';
 import { ViewCustomerDialogComponent } from './Dialogbox/view-customer-dialog/view-customer-dialog.component';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserchangepasswordComponent } from './Components/profile/userchangepassword/userchangepassword.component';
@@ -67,7 +67,7 @@ import { AboutUsComponent } from './Components/About/about-us/about-us.component
 import { DeleteDialogComponent } from './Dialogbox/delete-dialog/delete-dialog.component';
 import { OrderDialogComponent } from './Dialogbox/order-dialog/order-dialog.component';
 import { DialogboxComponent } from './Components/profile/dialogbox/dialogbox.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 // import { PaymentComponent } from './Components/payment/payment.component';
 import { CoDialogPaymentOptionComponent } from './Components/cart/co-dialog-payment-option/co-dialog-payment-option.component';
 import { ConnectionStatusComponent } from './Components/connection-status/connection-status.component';
@@ -112,7 +112,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
     DialogboxComponent,
     CoDialogPaymentOptionComponent,
     ConnectionStatusComponent,
-    MapComponent,    
+    MapComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,8 +126,8 @@ import { GoogleMapsModule } from '@angular/google-maps'
     MatSlideToggleModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatDialogModule, 
-    MatDialogModule, 
+    MatDialogModule,
+    MatDialogModule,
     MatSelectModule,
     MatInputModule,
     MatRadioModule,
@@ -160,7 +160,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
     ScrollingModule,
     MatSidenavModule,
     GoogleMapsModule,
-    
+
   ],
   providers: [
     DatePipe,
@@ -171,4 +171,4 @@ import { GoogleMapsModule } from '@angular/google-maps'
     CUSTOM_ELEMENTS_SCHEMA
   ],
 })
-export class AppModule {}
+export class AppModule { }

@@ -5,7 +5,7 @@
   }
   
   .example-full-width {
-    width: 100%;
+    width: 110%;
   }
   .example-container mat-form-field + mat-form-field {
     margin-left: 8px;
@@ -28,7 +28,7 @@
    background-color: rgb(235, 234, 232);
    display: inline-block;
    margin-left: 33.33%;
-   margin-top: 10%;
+   margin-top: 12%;
    border-radius: 20px;
    text-align: center;
    padding: 22px;
@@ -36,11 +36,9 @@
    max-width: 35%;
   }
   
-  .logo {
-    display: block;
-    margin: auto;
-    width: 22%;
-    padding-bottom: 20px;
+  img{
+    width: 28%;
+    height: 22%;
   }
 
 
