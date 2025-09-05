@@ -3,17 +3,13 @@ dotenv.config({ path: "./.env" });
 const stripe = require("stripe")(process.env.PAYMENT_SECRET_KEY);
 
 exports.paymentProcess = async (req, res, next) => {
-    console.log("tttttt",req.body);
+  const { email, id, price } = req.body;
   customer = stripe.customers
     .create({
-      email: req.body.email,
-      source: req.body.id,
-      description: req.body.email,
-    })
-
-
-
-    .then(async (customer) => {
+      email: email,
+      source: id,
+      description: email,
+    }).then(async (customer) => {
       let paymentMethod = await stripe.paymentMethods.create({
         type: "card",
         card: {
@@ -25,7 +21,7 @@ exports.paymentProcess = async (req, res, next) => {
 
       paymentIntent = await stripe.paymentIntents.create({
         payment_method: paymentMethod.id,
-        amount: req.body.price * 100,
+        amount: price * 100,
         currency: "inr",
         customer: customer.id,
         description: "test Payment",
@@ -39,11 +35,12 @@ exports.paymentProcess = async (req, res, next) => {
           { payment_method: "pm_card_visa" }
         );
 
-        res.status(200).send({
+        return res.status(200).send({
           message: "Payment Successfull...",
           result: paymentConfirm,
         });
       } catch (err) {
+        console.log("Error while payment: ", err)
         return res
           .status(500)
           .send({ err: err, message: "Payment Failed" });

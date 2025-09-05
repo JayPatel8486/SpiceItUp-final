@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 
 const forgotPasswordSchema = Schema([{
-
     email: {
         type: String,
     },
@@ -13,12 +12,10 @@ const forgotPasswordSchema = Schema([{
     },
     otpType: {
         type: String,
-        require: false
-    }
-
+        require: false,
+    },
 }]);
 
-// Create Collection
+// forgot password collection
 const forgot = new model('forgotPassword', forgotPasswordSchema);
-
 module.exports = forgot;

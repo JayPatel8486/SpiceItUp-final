@@ -83,13 +83,12 @@ const checkotp = async (req, res) => {
       let result = compareotp.toObject();
       let token = jwt.sign({ email }, process.env.SECRET_KEY, { expiresIn: "4h" });
       result.token = token
-      res.status(200).send(result);
-
+      return res.status(200).send(result);
     }
-    res.status(200).send(compareotp);
+    return res.status(200).send(compareotp);
   } catch (error) {
     console.error("Error in checkotp:", error);
-    res.status(500).send("Internal server error");
+    return res.status(500).send("Internal server error");
   }
 };
 

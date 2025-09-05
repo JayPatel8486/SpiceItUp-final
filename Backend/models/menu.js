@@ -1,4 +1,3 @@
-const { number } = require("joi");
 const { Schema, model } = require("mongoose");
 
 const menuSchema = Schema([
@@ -13,8 +12,8 @@ const menuSchema = Schema([
     item_type: {
       type: String,
     },
-    image_url:{
-      type : String
+    image_url: {
+      type: String
     },
     description: {
       type: String,
@@ -23,7 +22,6 @@ const menuSchema = Schema([
       type: Date,
       default: Date.now(),
     },
-
     updatedAt: {
       type: Date,
       default: Date.now(),
@@ -39,7 +37,6 @@ const menuSchema = Schema([
   },
 ]);
 
-// Collection
+// menu collection
 const Menu_model = new model("Menu", menuSchema);
-
 module.exports = Menu_model;

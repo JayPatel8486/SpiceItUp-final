@@ -56,7 +56,7 @@ const orderSchema = new mongoose.Schema([
         },
       },
     ],
-    finalTotal:{
+    finalTotal: {
       type: Number,
     },
 
@@ -79,8 +79,6 @@ const orderSchema = new mongoose.Schema([
   },
 ]);
 
-//collections
-
+// order collection
 const Order_model = new mongoose.model("Order", orderSchema);
-
 module.exports = Order_model;

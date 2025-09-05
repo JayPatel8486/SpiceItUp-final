@@ -5,35 +5,50 @@ const Order_model = require('../models/order')//Import Order Model
 const getAllTableOrders = async (req, res) => {
   try {
     const tableOrder = await Booking_model.find().populate("userId")
-    res.status(200).json(tableOrder);
+    if (tableOrder.length === 0) {
+      return res.status(200).json({
+        message: "No bookings found",
+        data: [],
+      });
+    }
+    return res.status(200).json(tableOrder);
   } catch (err) {
-    res.status(500).json(err);
+    console.error("Error while fetching all table orders: ", err);
+    return res.status(500).json(err);
   }
 };
 
 
 //Get Order for Table API
 const getOrders = async (req, res) => {
-  const booking_id = req.params.id;
-  const tableOrder = await Order_model.find({ booking_id });
-  if (!tableOrder) {
-    res.status(404).json({ error: 'Order By Id Not Found' });
-  }
-  else {
-    res.status(200).json(tableOrder);
+  try {
+    const booking_id = req.params.id;
+    const tableOrder = await Order_model.find({ booking_id });
+    if (!tableOrder) {
+      return res.status(404).json({ error: 'Order By Id Not Found' });
+    }
+    return res.status(200).json(tableOrder);
+  } catch (error) {
+    console.error("Get Orders error:", err);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 };
 
 
 //Get all Booking For that particular Id
 const getOrderByUserId = async (req, res) => {
-  const userId = req.params.id;
-  const userbooking = await Booking_model.find({ userId }).populate("userId")
-  if (userbooking) {
-    res.status(200).json(userbooking);
+  try {
+    const userId = req.params.id;
+    const userbooking = await Booking_model.find({ userId }).populate("userId");
 
-  } else {
-    res.status(500).json({ message: "there was erroe while fetching the data" });
+    if (!userbooking || userbooking.length === 0) {
+      return res.status(404).json({ message: "No bookings found for this user" });
+    }
+
+    return res.status(200).json(userbooking);
+  } catch (err) {
+    console.error("Error fetching bookings:", err);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -46,12 +61,15 @@ const UpdateTableStatus = async (req, res) => {
       { status: 'Completed' },
       { new: true }
     );
+
     if (!tableOrder) {
-      res.status(404).json({ error: 'Table Not Found' });
+      return res.status(404).json({ error: 'Booking not found' });
     }
-    res.status(200).json(tableOrder);
+
+    return res.status(200).json(tableOrder);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("UpdateTableStatus error:", err);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 };
 
@@ -63,12 +81,15 @@ const Ordered = async (req, res) => {
       { status: 'Ordered' },
       { new: true }
     );
+
     if (!tableOrder) {
-      res.status(404).json({ error: 'Table Not Found' });
+      return res.status(404).json({ error: 'Booking not found' });
     }
-    res.status(200).json(tableOrder);
+
+    return res.status(200).json(tableOrder);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Ordered update error:", err);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 };
 
@@ -80,12 +101,15 @@ const CancelTableOrder = async (req, res) => {
       { status: 'Cancelled' },
       { new: true }
     );
+
     if (!tableOrder) {
-      res.status(404).json({ error: 'Table Not Found' });
+      return res.status(404).json({ error: 'Booking not found' });
     }
-    res.status(200).json(tableOrder);
+
+    return res.status(200).json(tableOrder);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("CancelTableOrder error:", err);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 };
 
@@ -94,21 +118,24 @@ const feedback = async (req, res) => {
   try {
     const id = req.params.id;
     const feedback = req.body.feedback;
-    const tableOrder = await Booking_model.findByIdAndUpdate(id)
-    if (!tableOrder) {
-      res.status(404).json({ error: 'Table Not Found' });
-    }
-    tableOrder.feedback = feedback, { new: true };
-    tableOrder.updatedAt = new Date();
-    tableOrder.updatedBy = "Customer"
-    tableOrder.save();
-    res.status(200).json(tableOrder);
 
+    const tableOrder = await Booking_model.findById(id);
+    if (!tableOrder) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+
+    tableOrder.feedback = feedback;
+    tableOrder.updatedAt = new Date();
+    tableOrder.updatedBy = "Customer";
+
+    await tableOrder.save();
+
+    return res.status(200).json(tableOrder);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Feedback error:", error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
-}
+};
 
 //Exports Module
 module.exports = { getAllTableOrders, UpdateTableStatus, feedback, getOrderByUserId, CancelTableOrder, getOrders, Ordered }

@@ -1,13 +1,8 @@
 const express = require("express");
 const auth = require('../middleware/auth')
-
-
-const router = express.Router();
-
-const controller = require("../controllers/menu");
 const multer = require("multer");
-const path = require("path");
-
+const controller = require("../controllers/menu");
+const router = express.Router();
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -20,19 +15,12 @@ const upload = multer({
   }),
 }).single("image");
 
-
-router.post("/", auth,upload, controller.postMenu);
-
-router.get("/", auth,controller.getAllMenu);
-
+router.get("/", auth, controller.getAllMenu);
 router.get("/:filter", auth, controller.filter);
-
-router.get("/:id",auth, controller.getMenu);
-
-router.put("/:id",upload,auth, controller.updateMenu);
-
-router.delete("/:id",auth, controller.deleteMenu);
-
+router.get("/:id", auth, controller.getMenu);
 router.get("/item/menu", auth, controller.headerItem)
+router.post("/", auth, upload, controller.postMenu);
+router.put("/:id", upload, auth, controller.updateMenu);
+router.delete("/:id", auth, controller.deleteMenu);
 
 module.exports = router;

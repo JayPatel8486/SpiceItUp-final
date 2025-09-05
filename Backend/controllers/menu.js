@@ -1,21 +1,23 @@
 const Menu = require("../models/menu");
-const multer = require("multer");
-const fs = require("fs");
-const { log } = require("console");
 
 const postMenu = async (req, res) => {
-  console.log(req.file);
-
-  var menu = {
-    item_name: req.body.item_name,
-    item_type: req.body.item_type,
-    price: req.body.price,
-    description: req.body.description,
-    image_url: req.file.filename,
-  };
-  const menu_data = await Menu.create(menu);
-  console.log(menu_data);
-  res.status(200).send({ menu });
+  try {
+    const { filename } = req.file;
+    const { item_name, item_type, price, description } = req.body;
+    const menu = {
+      item_name,
+      item_type,
+      price,
+      description,
+      image_url: filename,
+    };
+    const menu_data = await Menu.create(menu);
+    console.log(menu_data);
+    return res.status(200).send({ menu });
+  } catch (err) {
+    console.error("Error creating menu:", err);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 };
 
 const getAllMenu = async (req, res) => {
@@ -53,88 +55,105 @@ const getAllMenu = async (req, res) => {
     const all_menu_get = await Menu.aggregate(pipeline);
     return res.json(all_menu_get);
   } catch (error) {
-    console.error(error);
+    console.error("Error while fetching all menu items: ", error);
     res.status(500).json({ error: "error" });
   }
 };
 
 const filter = async (req, res) => {
   try {
-    Data = req.params.filter;
-    console.log(Data);
-    const filt = await Menu.find({
-      item_type: Data,
-    });
+    const Data = req.params.filter;
+    if (!Data) {
+      return res.status(400).json({ error: "Filter parameter is required" });
+    }
+    const filt = await Menu.find({ item_type: Data });
+    if (!filt || filt.length === 0) {
+      return res.status(404).json({ message: "No menu items found for this filter" });
+    }
     console.log(filt);
-    return res.send(filt);
-  } catch (e) {
-    res.status(404).send(e);
+    return res.status(200).send(filt);
+  } catch (err) {
+    console.error("Filter error:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
 const getMenu = async (req, res) => {
   try {
     let id = req.params.id;
-    let menu_get = await Menu.findOne({ _id: id });
-    console.log(menu_get);
+    let menuItems = await Menu.findOne({ _id: id });
+    console.log(menuItems);
 
-    if (!menu_get) {
-      return res.status(404).send();
-    } else {
-      res.send(menu_get);
+    if (!menuItems) {
+      return res.status(404).send("No items found!");
     }
-  } catch (e) {
-    res.status(404).send(e);
+    return res.status(200).send(menuItems);
+
+  } catch (err) {
+    console.error("Error while fetching menu items: ", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
 const updateMenu = async (req, res) => {
   try {
-    let id = req.params.id;
-
+    const id = req.params.id;
+    const { item_name, item_type, price, description } = req.body;
+    const { filename } = req.file;
+    if (!id) {
+      return res.status(400).json({ error: "Menu ID is required" });
+    }
     const record = await Menu.findByIdAndUpdate(id);
-
-    record.item_name = req.body.item_name;
-    record.item_type = req.body.item_type;
-    record.price = req.body.price;
-    record.description = req.body.description;
+    if (!record) {
+      return res.status(404).json({ error: "Menu item not found" });
+    }
+    record.item_name = item_name;
+    record.item_type = item_type;
+    record.price = price;
+    record.description = description;
     if (req.file) {
-      record.image_url = req.file.filename;
+      record.image_url = filename;
     }
 
     await record.save();
-    res.status(200).json({
+    return res.status(200).json({
       status: 201,
       message: "Image updated successfully.",
       data: record,
     });
-  } catch (e) {
-    console.log("error: ", e);
-    res.status(500).send({ message: "error" });
+  } catch (err) {
+    console.error("UpdateMenu error:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
 const headerItem = async (req, res) => {
   try {
     const item = await Menu.find();
-
-    return res.json(item);
-  } catch (error) {
-    return res.send(error);
+    if (!item || item.length === 0) {
+      return res.status(404).json({ message: "No menu items found" });
+    }
+    return res.status(200).json(item);
+  } catch (err) {
+    console.error("HeaderItem error:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
 const deleteMenu = async (req, res) => {
   try {
-    let menu_delete = await Menu.findByIdAndDelete(req.params.id);
-    if (!req.params.id) {
-      return res.status(404).send();
+    const id = req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: "Menu ID is required" });
     }
-
-    console.log(menu_delete);
-    return res.send(menu_delete);
-  } catch (e) {
-    res.status(500).send(e);
+    const menu_delete = await Menu.findByIdAndDelete(id);
+    if (!menu_delete) {
+      return res.status(404).json({ error: "Menu item not found" });
+    }
+    return res.status(200).send(menu_delete);
+  } catch (err) {
+    console.error("DeleteMenu error:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 

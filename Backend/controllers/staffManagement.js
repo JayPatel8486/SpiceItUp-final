@@ -3,84 +3,91 @@ const bcrypt = require("bcrypt");
 const nodemailer = require('nodemailer');
 const path = require('path');
 const ejs = require('ejs');
+const cred = require('../constants/const')
 
 // Add staff
 const addStaff = async (req, res) => {
   try {
+    const { first_name, last_name, gender, phone, email, password } = req.body;
 
-    const transport = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      auth: {
-        user: "bharatdev114@gmail.com",
-        pass: "ddvtbkzzexvyvusq"
-      }
+    if (!first_name || !last_name || !gender || !phone || !email || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    // Check if email already exists
+    const existingStaff = await registrationDetails.findOne({ email });
+    if (existingStaff) {
+      return res.status(409).json({ error: "Email is already registered" });
+    }
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    // 🔹 Create staff user
+    const newStaff = new registrationDetails({
+      first_name,
+      last_name,
+      gender,
+      phone,
+      email,
+      password: hashedPassword,
+      user_role: "staff",
     });
 
+    const staff = await newStaff.save();
 
-      ejs.renderFile(path.resolve("./views/staffEmail.ejs"), { first_name: req.body.first_name, email: req.body.email, password: req.body.password  } ,(err, data) => {
+    // 🔹 Send staff details email
+    const transport = nodemailer.createTransport({
+      host: cred.NODEMAILER_HOST,
+      auth: {
+        user: cred.ADD_STAFF_USER_EMAIL,
+        pass: cred.ADD_STAFF_USER_PASSWORD,
+      },
+    });
+
+    ejs.renderFile(
+      path.resolve("./views/staffEmail.ejs"),
+      { first_name, email, password }, // send plain password only in email, not DB
+      (err, data) => {
         if (err) {
-          console.log(err);
+          console.error("EJS render error:", err);
         } else {
-          var mailOptions = {
-            from: "bharatdev114@gmail.com",
-            to: req.body.email,
-            subject: "Staff Details",
-            html: data
+          const mailOptions = {
+            from: cred.ADD_STAFF_USER_EMAIL,
+            to: email,
+            subject: "Staff Account Created",
+            html: data,
           };
-    
+
           transport.sendMail(mailOptions, (error, info) => {
             if (error) {
-              return console.log(error);
+              console.error("Email send error:", error);
+            } else {
+              console.log("Staff email sent: %s", info.messageId);
             }
-            console.log('Message sent: %s', info.messageId);
           });
         }
-      });
+      }
+    );
 
-
-    let add_staff = new registrationDetails({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      user_role: 'staff',
-      gender: req.body.gender,
-      phone: req.body.phone,
-      email: req.body.email,
-      password: await bcrypt.hash(req.body.password, 12)
-    })
-    if (req.body.first_name && req.body.last_name && req.body.gender &&
-      req.body.phone && req.body.email && req.body.password) {
-      const staff = await add_staff.save();
-
-      console.log(staff);
-      res.status(201).send(staff);
-
-    }
-
-    else {
-      res.status(400).send({ "error": "Invalid data!" })
-    }
-
-  } catch (e) {
-    res.status(500).send({ "error": "Something went wrong!" });
+    return res.status(201).send(staff);
+  } catch (err) {
+    console.error("Error adding staff:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
 
-// Get Staff
+// Get Staff details
 const getStaffDetails = async (req, res) => {
   try {
     let all_staffs = await registrationDetails.find({ user_role: "staff" });
-
-    if (all_staffs) {
-      console.log(all_staffs);
-      return res.status(200).send(all_staffs);
-
-    } else {
-      return res.status(404).send({ "error": "Staff details not found!" });
+    if (!all_staffs || all_staffs.length === 0) {
+      return res.status(404).json({ error: "No staff details found" });
     }
-
-  } catch (e) {
-    res.status(500).send({ "error": "Something went wrong!" });
+    console.log("Staff details fetched:", all_staffs);
+    return res.status(200).send(all_staffs);
+  } catch (err) {
+    console.error("Error fetching staff details:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -90,16 +97,14 @@ const deleteStaff = async (req, res) => {
   try {
     let deleteStaff = await registrationDetails.findByIdAndDelete(req.params.id);
 
-    if (deleteStaff) {
-      console.log(deleteStaff);
-      return res.status(200).send(deleteStaff);
-
-    } else {
-      return res.status(404).send({ "error": "Staff not found!" });
+    if (!deleteStaff) {
+      return res.status(404).json({ error: "Staff not found!" });
     }
-
-  } catch (e) {
-    res.status(500).send({ "error": "Something went wrong!" });
+    console.log("Deleted staff:", deleteStaff);
+    return res.status(200).send(deleteStaff);
+  } catch (err) {
+    console.error("Error fetching staff details:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -109,15 +114,14 @@ const updateStaff = async (req, res) => {
   try {
     let id = req.params.id;
     let updateStaff = await registrationDetails.findByIdAndUpdate({ _id: id }, req.body);
-    if (updateStaff) {
-      console.log(updateStaff);
-      return res.status(200).send(updateStaff);
-    } else {
-      return res.status(404).send({ "error": "Staff not found!" });
+    if (!updateStaff) {
+      return res.status(404).json({ error: "Staff not found!" });
     }
-
+    console.log("Updated staff:", staff);
+    return res.status(200).send(updateStaff);
   } catch (e) {
-    res.status(500).send(e);
+    console.error("Error fetching staff details:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
 }
 
