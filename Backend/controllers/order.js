@@ -21,8 +21,8 @@ const postOrder = async (req, res) => {
       order_items
     };
     let order_add = await Order.create(data);
-    res.status(200).send(order_add);
     console.log("order : ", order_add);
+    return res.status(200).send(order_add);
   } catch (err) {
     console.error("PostOrder error:", err);
     return res.status(500).json({ error: "Internal server error" });

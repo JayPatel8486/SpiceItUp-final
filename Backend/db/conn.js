@@ -4,7 +4,7 @@ const connectdb = async () => {
     return await mongoose.connect('mongodb+srv://rithvik:rithvik@atlascluster.ktvdzjq.mongodb.net/RMS').then(() => {
         console.log("DB Connected!!");
     }).catch((err) => {
-        console.log("Error while connect DB: ",err)
+        console.log("Error while connecting DB: ",err)
         console.log(err);
     });
 }

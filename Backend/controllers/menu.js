@@ -56,7 +56,7 @@ const getAllMenu = async (req, res) => {
     return res.json(all_menu_get);
   } catch (error) {
     console.error("Error while fetching all menu items: ", error);
-    res.status(500).json({ error: "error" });
+    return res.status(500).json({ error: "error" });
   }
 };
 

@@ -24,7 +24,7 @@ const addBookingDetails = async (req, res) => {
 
     } catch (err) {
         console.error("Add booking error: ", err);
-        res.status(500).send({ error: "Something went wrong!" });
+        return res.status(500).send({ error: "Something went wrong!" });
     }
 };
 
@@ -39,11 +39,11 @@ const checkAvailableBooking = async (req, res) => {
             console.log("No tables available for the given time");
             return res.status(400).send("No tables available for the selected time");
         }
-        res.status(200).send(Availabletables);
+        return res.status(200).send(Availabletables);
     }
     catch (err) {
         console.error("Check available table error:", err);
-        res.status(500).send("Internal server error");
+        return res.status(500).send("Internal server error");
     }
 }
 
@@ -59,7 +59,7 @@ const getBookingDetails = async (req, res) => {
         return res.status(200).send(all_bookings);
     } catch (err) {
         console.error("Error while fetching booking details: ", err);
-        res.status(500).send("Internal server error");
+        return res.status(500).send("Internal server error");
     }
 };
 
