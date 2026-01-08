@@ -1,34 +1,46 @@
 <div class="auth-wrapper">
-  <div class="auth-container">
-    <div class="auth-card">
-      <div class="auth-header">
-        <div class="verification-icon">
-          <mat-icon>verified_user</mat-icon>
-        </div>
-        <h1 class="auth-title">Verification</h1>
-        <p class="auth-subtitle">Please enter the 4-digit code sent to your email</p>
+  <div class="auth-split-container">
+    <!-- Left Side - Branding -->
+    <div class="auth-brand-side">
+      <div class="brand-content">
+        <img class="brand-logo" src="../../../../assets/Spice It Up.png" alt="Spice It Up" />
+        <h1 class="brand-title">Spice It Up</h1>
+        <p class="brand-subtitle">Delicious food delivered to your doorstep</p>
       </div>
-      
-      <form class="auth-form" [formGroup]="checkOtp" (ngSubmit)="otp(checkOtp.value)">
-        <input type="hidden" formControlName="email">
-        
-        <div class="form-group">
-          <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Verification Code</mat-label>
-            <input matInput type="number" formControlName="otp" placeholder="Enter 4-digit code">
-            <mat-icon matPrefix>security</mat-icon>
-            <mat-error *ngIf="checkOtp.hasError('required', 'otp')">Verification code is required</mat-error>
-          </mat-form-field>
+    </div>
+    
+    <!-- Right Side - OTP Form -->
+    <div class="auth-form-side">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="verification-icon">
+            <mat-icon>verified_user</mat-icon>
+          </div>
+          <h1 class="auth-title">Verification</h1>
+          <p class="auth-subtitle">Please enter the 4-digit code sent to your email</p>
         </div>
         
-        <button mat-flat-button color="primary" class="auth-button" [disabled]="!checkOtp.valid">
-          Verify Code
-        </button>
-        
-        <div class="auth-footer">
-          <p>Didn't receive the code? <a href="#" class="resend-link">Resend</a></p>
-        </div>
-      </form>
+        <form class="auth-form" [formGroup]="checkOtp" (ngSubmit)="otp(checkOtp.value)">
+          <input type="hidden" formControlName="email">
+          
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Verification Code</mat-label>
+              <input matInput type="number" formControlName="otp" placeholder="Enter 4-digit code">
+              <mat-icon matPrefix>security</mat-icon>
+              <mat-error *ngIf="checkOtp.hasError('required', 'otp')">Verification code is required</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <button mat-flat-button color="primary" class="auth-button" [disabled]="!checkOtp.valid">
+            Verify Code
+          </button>
+          
+          <div class="auth-footer">
+            <p>Didn't receive the code? <a href="#" class="resend-link">Resend</a></p>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
