@@ -72,8 +72,6 @@ const updatePassword = async (req, res) => {
 const checkotp = async (req, res) => {
   try {
     const { routeType, otp: { otp, email } } = req.body;
-    console.log(req.body);
-
     let compareotp = await forgotPassword.findOne({ otp, otpType: routeType, email });
     if (!compareotp) {
       return res.status(401).send("not verified");
