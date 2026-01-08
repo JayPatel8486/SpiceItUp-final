@@ -19,7 +19,7 @@ export class InterceptInterceptor implements HttpInterceptor {
 
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
     //handle your auth error or rethrow
-    if (err.status === 401 || err.status === 403 || err.status === 502) {
+    if (err.status === 403 || err.status === 502) {
       //navigate /delete cookies or whatever
       localStorage.removeItem('loginUser');
       localStorage.removeItem('userId');

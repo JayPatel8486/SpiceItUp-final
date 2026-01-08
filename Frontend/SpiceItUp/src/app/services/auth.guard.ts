@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
     const url = state.url;
-    console.log(url.includes('route'));
+    // console.log(url.includes('route'));
     if (url.includes('/otp') && url.includes('route')) {
       if(this.auth.isForgotPasswordOTP()) {
         return true;

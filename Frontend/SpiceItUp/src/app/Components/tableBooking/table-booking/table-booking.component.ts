@@ -98,7 +98,7 @@ export class TableBookingComponent {
 
   onAdded() {
     let timeStamp = new Date(
-      this.date.getFullYear(),
+      this.date?.getFullYear(),
       this.date.getMonth(),
       this.date.getDate(),
       this.time_slot,

@@ -1,77 +1,131 @@
-<div>
+<div class="menu-page">
   <app-header></app-header>
   <div class="row">
     <div class="col-md-2">
       <app-sidebar></app-sidebar>
     </div>
     <div class="col-md-10">
-      <router-outlet></router-outlet>
+      <div class="menu-container">
+        <router-outlet></router-outlet>
 
-      <!-- <div>
-        <h2>Food Items</h2>
-        <select (change)="onOriginCategorySelected($event)">
-          <option value="">All Categories</option>
-          <option *ngFor="let category of originCategories" [value]="category">{{ category }}</option>
-        </select>
-      </div> -->
-
-
-
-
-      <nav class="navbar navbar-expand-lg 10px">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03"
-          aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation"
-          (click)="isCollapsed = !isCollapsed">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarColor03" [ngbCollapse]="isCollapsed">
-          <ul class="navbar-nav mr-auto">
-            <li class="item">
-              <a (click)="AllItemFilter()">All</a>
-            </li>
-            <li routerLinkActive="active" class="item" *ngFor="let category of headerMenu" [value]="category">
-              <a (click)="onOriginCategorySelected(category)">{{ category }}</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <div class="abc"></div>
-      <div class="container">
-        <div class="row">
-          <ng-container *ngFor="let items of filteredFoodItems">
-            <div class="card col-md-3">
-              <img src="{{ url }}{{ items.image_url }}" alt=".................." />
-              <div class="box">
-                <span class="float-start" style="font-weight: bold; font-size: 18px">{{ items.item_name }}</span>
-                <span class="float-end" style="font-weight: 500; font-size: 18px">&#8377;{{ items.price }}</span><br />
-                <h5 class="des">{{ items.description }}</h5>
-                <button mat-raised-button class="btn" (click)="addtoCart(items)" style="
-                    width: 100%;
-                    height: 30px;
-                    background-color: #3f51b5;
-                    color: white;
-                  ">
-                  Add to Cart
-                </button>
+        <!-- Page Header -->
+        <div class="page-header">
+          <div class="header-content">
+            <h1 class="page-title">Browse Menu</h1>
+            <p class="page-subtitle">Discover our delicious collection of dishes</p>
+          </div>
+          <div class="header-stats">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <mat-icon>restaurant_menu</mat-icon>
+              </div>
+              <div class="stat-info">
+                <span class="stat-number">{{filteredFoodItems.length}}</span>
+                <span class="stat-label">Items Available</span>
               </div>
             </div>
-          </ng-container>
+          </div>
         </div>
-      </div>
 
+        <!-- Category Navigation -->
+        <div class="category-nav">
+          <div class="nav-header">
+            <h2>Categories</h2>
+            <button class="nav-toggle" mat-icon-button (click)="isCollapsed = !isCollapsed">
+              <mat-icon>{{isCollapsed ? 'expand_more' : 'expand_less'}}</mat-icon>
+            </button>
+          </div>
+          
+          <div class="category-buttons" [ngClass]="{'collapsed': isCollapsed}">
+            <button 
+              mat-raised-button 
+              class="category-btn active" 
+              (click)="AllItemFilter()">
+              <mat-icon>restaurant</mat-icon>
+              <span>All</span>
+            </button>
+            
+            <button 
+              *ngFor="let category of headerMenu" 
+              mat-raised-button 
+              class="category-btn"
+              (click)="onOriginCategorySelected(category)">
+              <mat-icon>
+                {{category === 'Starter' ? 'local_dining' : 
+                  category === 'Punjabi' ? 'rice_bowl' :
+                  category === 'South Indian' ? 'ramen_dining' :
+                  category === 'Italian' ? 'local_pizza' :
+                  category === 'Gujarati' ? 'lunch_dining' :
+                  category === 'Sweet' ? 'cake' :
+                  category === 'Cocktails' ? 'local_bar' : 'restaurant_menu'}}
+              </mat-icon>
+              <span>{{category}}</span>
+            </button>
+          </div>
+        </div>
 
+        <!-- Menu Items Grid -->
+        <div class="menu-grid">
+          <div class="grid-container">
+            <div class="menu-card" *ngFor="let items of filteredFoodItems">
+              <div class="card-image">
+                <img [src]="url + items.image_url" [alt]="items.item_name" loading="lazy">
+                <div class="image-overlay">
+                  <div class="overlay-content">
+                    <mat-icon>visibility</mat-icon>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="card-content">
+                <div class="item-header">
+                  <h3 class="item-name">{{items.item_name}}</h3>
+                  <div class="item-price">
+                    <span class="currency">₹</span>
+                    <span class="amount">{{items.price}}</span>
+                  </div>
+                </div>
+                
+                <p class="item-description">{{items.description}}</p>
+                
+                <div class="card-actions">
+                  <button 
+                    mat-raised-button 
+                    color="primary" 
+                    class="add-to-cart-btn"
+                    (click)="addtoCart(items)">
+                    <mat-icon>add_shopping_cart</mat-icon>
+                    <span>Add to Cart</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <!-- Empty State -->
+          <div *ngIf="filteredFoodItems.length === 0" class="empty-state">
+            <div class="empty-icon">
+              <mat-icon>restaurant_menu</mat-icon>
+            </div>
+            <h3>No Items Found</h3>
+            <p>Try selecting a different category or check back later.</p>
+          </div>
+        </div>
 
-      <!-- add to cart icon -->
-
-      <div class="example-button-container">
-        <button routerLink="/cart" mat-fab color="primary">
-          <mat-icon matBadge="{{ totalItem }}" matBadgeColor="warn">shopping_cart</mat-icon>
-        </button>
+        <!-- Floating Cart Button -->
+        <div class="floating-cart">
+          <button 
+            mat-fab 
+            color="primary" 
+            class="cart-fab"
+            routerLink="/cart"
+            [matBadge]="totalItem" 
+            matBadgeColor="warn"
+            [matBadgeHidden]="totalItem === 0">
+            <mat-icon>shopping_cart</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-
 </div>

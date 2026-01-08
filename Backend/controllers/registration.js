@@ -41,7 +41,7 @@ const getRegDetails = async (req, res) => {
     if (!customers || customers.length === 0) {
       return res.status(404).send({ message: "No customers found" });
     }
-    return res.status(200).send(all_customerReg_get);
+    return res.status(200).send(customers);
   } catch (err) {
     console.error("Error fetching registration details:", err);
     return res.status(500).json({ error: "Internal server error" });

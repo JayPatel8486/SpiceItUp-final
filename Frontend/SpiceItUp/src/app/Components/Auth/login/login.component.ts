@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
               route: "login" 
             }
           });
-          this.toastr.success(`OTP send to ${result.email}`, '', {
+          this.toastr.success(`OTP send to ${result.data.user.email}`, '', {
             timeOut: 1000, progressBar: true, progressAnimation: 'increasing',
           });
         }

@@ -1,73 +1,88 @@
-<div class="background vh-100">
-<div class="container">
-  <img class="logo" src="../../../../assets/Spice It Up.png"  alt=" Home-Spice it up ">
-    <h1>Registration</h1><hr>
-    <form class="example-form" [formGroup]="registrationForm" (ngSubmit)="register(registrationForm.value)">
-      <mat-form-field class="example-full-width">
-          <mat-label>First Name</mat-label>
-          <input matInput type="text"  name="first_name" formControlName="first_name">
-        </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Last Name</mat-label>
-        <input matInput type="text"  name="last_name" formControlName="last_name">
-      </mat-form-field>
-  
-      <label class="Gender">Gender: </label>
-        <mat-radio-group aria-label="Select an option"  name="gender" formControlName="gender">
-          <mat-radio-button value="Male">Male</mat-radio-button>
-          <mat-radio-button value="Female">Female</mat-radio-button>
-        </mat-radio-group>  
+<div class="auth-wrapper">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <img class="logo" src="../../../../assets/Spice It Up.png" alt="Spice It Up" />
+        <h1 class="auth-title">Create Account</h1>
+        <p class="auth-subtitle">Join us today</p>
+      </div>
+      
+      <form class="auth-form" [formGroup]="registrationForm" (ngSubmit)="register(registrationForm.value)">
+        <div class="form-row">
+          <div class="form-group half-width">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>First Name</mat-label>
+              <input matInput type="text" formControlName="first_name" placeholder="First name">
+              <mat-icon matPrefix>person</mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="form-group half-width">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Last Name</mat-label>
+              <input matInput type="text" formControlName="last_name" placeholder="Last name">
+            </mat-form-field>
+          </div>
+        </div>
         
-        <mat-form-field class="example-full-width">
-          <mat-label>Phone number</mat-label>
-          <input  matInput value="" type="number"  name="phone" formControlName="phone">
-          <mat-error *ngIf="registrationForm.hasError('pattern', 'phone')">phone number is invalid!!</mat-error>
-          <mat-error *ngIf="registrationForm.touched">phone number is required</mat-error>
-        </mat-form-field>
-  
-        <mat-form-field class="example-full-width">
-          <mat-label>Email</mat-label>
-          <input  matInput value="" type="email" name="email" formControlName="email">
-          <mat-error *ngIf="registrationForm.hasError('pattern', 'email')">Email is invalid!!</mat-error>
-          <mat-error *ngIf="registrationForm.touched">Email is required</mat-error>
-        </mat-form-field>
-    
-      
-  
-      <mat-form-field class="example-full-width">
-        <mat-label>Password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'"  name="password" formControlName="password" oncopy="return false" onpaste="return false" oncut="return false"/>
-        <mat-icon
-          mat-icon-button
-          matSuffix
-          (click)="hide = !hide"
-          [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hide">
-          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-        </mat-icon>
-        <mat-error *ngIf="registrationForm.hasError('minlength', 'password')">Password must be at least 6 characters</mat-error>
-        <mat-error *ngIf="registrationForm.touched">password is required</mat-error>
-      </mat-form-field>
-      
-  
-      <mat-form-field class="example-full-width">
-          <mat-label>Confirm password</mat-label>
-          <input matInput [type]="hides ? 'password' : 'text'"  name="confirm_password" formControlName="confirm_password" onpaste="return false">
-          <mat-icon
-            mat-icon-button
-            matSuffix
-            (click)="hides = !hides"
-            [attr.aria-label]="'hide password'"
-            [attr.aria-pressed]="hides">
-            <mat-icon>{{ hides ? "visibility_off" : "visibility" }}</mat-icon>
-          </mat-icon>
-          <mat-error *ngIf="f['confirm_password'].errors && f['confirm_password'].errors['ConfirmedValidator']">Passwords must match</mat-error>
-        </mat-form-field>
-      
-      
-      <button class="btn" mat-raised-button color="primary" [disabled]="!registrationForm.valid">Register</button>
-    </form>
+        <div class="form-row">
+          <div class="form-group half-width">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Phone Number</mat-label>
+              <input matInput type="number" formControlName="phone" placeholder="Enter phone number">
+              <mat-icon matPrefix>phone</mat-icon>
+              <mat-error *ngIf="registrationForm.hasError('pattern', 'phone')">Please enter a valid phone number</mat-error>
+              <mat-error *ngIf="registrationForm.hasError('required', 'phone')">Phone number is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group half-width">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Email Address</mat-label>
+              <input matInput type="email" formControlName="email" placeholder="Enter your email">
+              <mat-icon matPrefix>email</mat-icon>
+              <mat-error *ngIf="registrationForm.hasError('pattern', 'email')">Please enter a valid email</mat-error>
+              <mat-error *ngIf="registrationForm.hasError('required', 'email')">Email is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group half-width">
+            <mat-form-field appearance="outline" class="password">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" placeholder="Create password" oncopy="return false" onpaste="return false" oncut="return false">
+              <mat-icon matPrefix>lock</mat-icon>
+              <mat-icon matSuffix (click)="hide = !hide" class="toggle-password">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-error *ngIf="registrationForm.hasError('minlength', 'password')">Password must be at least 4 characters</mat-error>
+              <mat-error *ngIf="registrationForm.hasError('required', 'password')">Password is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group half-width">
+            <mat-form-field appearance="outline" class="confirm_password">
+              <mat-label>Confirm Password</mat-label>
+              <input matInput [type]="hides ? 'password' : 'text'" formControlName="confirm_password" placeholder="Confirm password" onpaste="return false">
+              <mat-icon matPrefix>lock_outline</mat-icon>
+              <mat-icon matSuffix (click)="hides = !hides" class="toggle-password">{{hides ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-error *ngIf="f['confirm_password'].errors && f['confirm_password'].errors['ConfirmedValidator']">Passwords must match</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="gender-label">Gender</label>
+          <mat-radio-group formControlName="gender" class="gender-group">
+            <mat-radio-button value="Male">Male</mat-radio-button>
+            <mat-radio-button value="Female">Female</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        
+        <button mat-flat-button color="primary" class="auth-button" [disabled]="!registrationForm.valid">
+          Create Account
+        </button>
+        
+        <div class="auth-footer">
+          <p>Already have an account? <a routerLink="../" class="signin-link">Sign in</a></p>
+        </div>
+      </form>
+    </div>
   </div>
-
 </div>

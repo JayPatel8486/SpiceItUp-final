@@ -9,7 +9,6 @@ import { PageNotFoundComponent } from './Components/Auth/page-not-found/page-not
 import { TableBookingComponent } from './Components/tableBooking/table-booking/table-booking.component';
 import { DialogTableBookingComponent } from './Components/tableBooking/dialog-table-booking/dialog-table-booking.component';
 import { OrderComponent } from './Components/order/order/order.component';
-import { FooterComponent } from './Components/shared/footer/footer.component';
 import { HeaderComponent } from './Components/shared/header/header.component';
 import { SidebarComponent } from './Components/shared/sidebar/sidebar.component';
 import { HomeComponent } from './Components/home/home/home.component';
@@ -53,14 +52,11 @@ import { DialogUpdateStaffComponent } from './Components/staffManagement/dialog-
 import { NgxUiLoaderModule, NgxUiLoaderHttpModule } from "ngx-ui-loader";
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-
-
 import { CustomerOrderComponent } from './Components/order/customer-order/customer-order.component';
 import { ConfirmationDialogComponent } from './Dialogbox/confirmation-dialog/confirmation-dialog.component';
 import { FeedbackDialogComponent } from './Dialogbox/feedback-dialog/feedback-dialog.component';
 import { ViewCustomerDialogComponent } from './Dialogbox/view-customer-dialog/view-customer-dialog.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserchangepasswordComponent } from './Components/profile/userchangepassword/userchangepassword.component';
 import { AboutUsComponent } from './Components/About/about-us/about-us.component';
@@ -74,7 +70,6 @@ import { ConnectionStatusComponent } from './Components/connection-status/connec
 import { MapComponent } from './Components/About/map/map.component';
 import { GoogleMapsModule } from '@angular/google-maps'
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +78,6 @@ import { GoogleMapsModule } from '@angular/google-maps'
     ForgotPasswordComponent,
     TableBookingComponent,
     DialogTableBookingComponent,
-    FooterComponent,
     HeaderComponent,
     SidebarComponent,
     HomeComponent,

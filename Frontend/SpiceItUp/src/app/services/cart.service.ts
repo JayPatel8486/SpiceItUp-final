@@ -29,6 +29,4 @@ export class CartService {
   postCartItem(data: any) {
     return this.http.post<any>('http://localhost:4000/order', data);
   }
-
-
 }

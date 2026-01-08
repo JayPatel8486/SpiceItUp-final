@@ -1,81 +1,105 @@
-<br />
+<div class="modern-sidebar">
+  <div class="sidebar-content">
+    <!-- Navigation Menu -->
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <h4 class="section-title">Main Menu</h4>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a routerLink="/home" routerLinkActive="active" class="nav-link">
+              <mat-icon class="nav-icon">home</mat-icon>
+              <span class="nav-text">Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/menu" routerLinkActive="active" class="nav-link">
+              <mat-icon class="nav-icon">restaurant_menu</mat-icon>
+              <span class="nav-text">Browse Menu</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/order" routerLinkActive="active" class="nav-link">
+              <mat-icon class="nav-icon">shopping_bag</mat-icon>
+              <span class="nav-text">My Orders</span>
+            </a>
+          </li>
+        </ul>
+      </div>
 
-<div class="col-md-2">
-  <ul type="none">
-    <a mat-list-item routerLink="/home">
-      <li routerLinkActive="bg-primary" class="show">
-        <span class="material-icons" style="color: rgb(0, 0, 0)">home</span>
-        Home
-      </li>
-    </a>
+      <div class="nav-section">
+        <h4 class="section-title">Account</h4>
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a routerLink="/userprofile" routerLinkActive="active" class="nav-link">
+              <mat-icon class="nav-icon">person</mat-icon>
+              <span class="nav-text">Profile</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/about" routerLinkActive="active" class="nav-link">
+              <mat-icon class="nav-icon">info</mat-icon>
+              <span class="nav-text">About Us</span>
+            </a>
+          </li>
+        </ul>
+      </div>
 
-    <a routerLink="/menu">
-      <li routerLinkActive="bg-primary" class="show">
-        <span class="material-icons" style="color: rgb(0, 0, 0)">
-          restaurant
-        </span>
-        Menu
-      </li>
-    </a>
+      <!-- Admin/Staff Section -->
+      <div class="nav-section" *ngIf="!adminUser() || !staffUser()">
+        <h4 class="section-title">Management</h4>
+        <ul class="nav-list">
+          <li class="nav-item" *ngIf="!adminUser() && !staffUser()">
+            <a routerLink="/orders" routerLinkActive="active" class="nav-link">
+              <mat-icon class="nav-icon">receipt_long</mat-icon>
+              <span class="nav-text">Current Orders</span>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="!adminUser()">
+            <a routerLink="/customerProfile" routerLinkActive="active" class="nav-link">
+              <mat-icon class="nav-icon">people</mat-icon>
+              <span class="nav-text">Customers</span>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="!adminUser()">
+            <a routerLink="/staff" routerLinkActive="active" class="nav-link">
+              <mat-icon class="nav-icon">badge</mat-icon>
+              <span class="nav-text">Staff</span>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="!adminUser()">
+            <a routerLink="/adminMenu" routerLinkActive="active" class="nav-link">
+              <mat-icon class="nav-icon">admin_panel_settings</mat-icon>
+              <span class="nav-text">Admin Menu</span>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="!staffUser()">
+            <a routerLink="/staffMenu" routerLinkActive="active" class="nav-link">
+              <mat-icon class="nav-icon">restaurant</mat-icon>
+              <span class="nav-text">Staff Menu</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-    <a href="" routerLink="/order">
-      <li routerLinkActive="bg-primary" class="show">
-        <span class="material-icons" style="color: rgb(0, 0, 0)">shopping_cart</span>
-        Order
-      </li>
-    </a>
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button class="quick-action-btn" routerLink="/table_booking">
+        <mat-icon>event_seat</mat-icon>
+        <span>Book Table</span>
+      </button>
+      <button class="quick-action-btn support-btn">
+        <mat-icon>support_agent</mat-icon>
+        <span>Help & Support</span>
+      </button>
+    </div>
 
-    <a href="" routerLink="/userprofile">
-      <li routerLinkActive="bg-primary" class="show">
-        <span class="material-icons" style="color: rgb(0, 0, 0)">person</span>
-        <span mat-list-item>Profile</span>
-      </li>
-    </a>
-
-    <a href="" routerLink="/about">
-      <li routerLinkActive="bg-primary" class="show">
-        <span class="material-icons" style="color: rgb(0, 0, 0)">info</span>
-        <span mat-list-item>About Us</span>
-      </li>
-    </a>
-
-    <a href="" (click)="onLogOut()">
-      <li routerLinkActive="bg-primary" class="show">
-        <span class="material-icons" style="color: rgb(0, 0, 0)">logout</span>
-        Logout
-      </li>
-    </a>
-
-    <a href="" routerLink="/orders" [hidden]="adminUser() && staffUser()">
-      <li routerLinkActive="bg-primary">
-        CurrentOrders
-      </li>
-    </a>
-
-    <a href="" routerLink="/customerProfile" [hidden]="adminUser()">
-      <li routerLinkActive="bg-primary">
-        Customer
-      </li>
-    </a>
-
-    <a routerLink="/staff" [hidden]="adminUser()">
-      <li routerLinkActive="bg-primary">
-        Staff
-      </li>
-    </a>
-
-    <a routerLink="/adminMenu" [hidden]="adminUser()">
-      <li routerLinkActive="bg-primary">
-        AdminMenu
-      </li>
-    </a>
-
-    <a routerLink="/staffMenu" [hidden]="staffUser()">
-      <li routerLinkActive="bg-primary">
-        StaffMenu
-      </li>
-    </a>
-
-  </ul>
-
+    <!-- Logout Button -->
+    <div class="sidebar-footer">
+      <button class="logout-btn" (click)="onLogOut()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </div>
+  </div>
 </div>

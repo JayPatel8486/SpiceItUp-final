@@ -1,113 +1,240 @@
-<div style="overflow-x: hidden">
+<div class="orders-page">
   <app-header></app-header>
   <div class="row">
     <div class="col-md-2">
       <app-sidebar></app-sidebar>
     </div>
     <div class="col-md-10">
-      <router-outlet></router-outlet>
+      <div class="orders-container">
+        <router-outlet></router-outlet>
 
-      <h2 style="text-align: center; padding-top: 37px">Orders</h2>
+        <!-- Page Header -->
+        <div class="page-header">
+          <div class="header-content">
+            <h1 class="page-title">My Orders</h1>
+            <p class="page-subtitle">Track and manage your table reservations</p>
+          </div>
+          <div class="header-stats">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <mat-icon>event_seat</mat-icon>
+              </div>
+              <div class="stat-info">
+                <span class="stat-number">{{dataSource.data.length}}</span>
+                <span class="stat-label">Total Orders</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
-          <!-- Sr.no Column -->
-          <ng-container matColumnDef="srNo">
-            <th mat-header-cell *matHeaderCellDef>Sr.no</th>
-            <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
-          </ng-container>
+        <!-- Orders Table -->
+        <div class="table-container">
+          <div class="table-header">
+            <h2>Order History</h2>
+            <div class="table-actions">
+              <mat-form-field appearance="outline" class="search-field">
+                <mat-label>Search orders...</mat-label>
+                <input matInput placeholder="Search by date, table, or status">
+                <mat-icon matSuffix>search</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
 
-          <!-- Date_of_reservation Column -->
-          <ng-container matColumnDef="date_of_reservation">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              Date_of_reservation
-            </th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.date | date : "dd-MM-yyyy" }}
-            </td>
-          </ng-container>
+          <div class="modern-table-wrapper">
+            <table mat-table [dataSource]="dataSource" matSort class="modern-table">
+              <!-- Sr.no Column -->
+              <ng-container matColumnDef="srNo">
+                <th mat-header-cell *matHeaderCellDef class="table-header-cell">
+                  <div class="header-content">
+                    <mat-icon>tag</mat-icon>
+                    <span>Sr.No</span>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let i = index" class="table-cell">
+                  <div class="cell-content">
+                    <span class="serial-number">{{ i + 1 }}</span>
+                  </div>
+                </td>
+              </ng-container>
 
-          <!-- Time_slot Column -->
-          <ng-container matColumnDef="time_slot">
-            <th mat-header-cell *matHeaderCellDef>Time_slot</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.time_slot }} O'clock (for 1 hour)
-            </td>
-          </ng-container>
+              <!-- Date_of_reservation Column -->
+              <ng-container matColumnDef="date_of_reservation">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header-cell">
+                  <div class="header-content">
+                    <mat-icon>calendar_today</mat-icon>
+                    <span>Reservation Date</span>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-cell">
+                  <div class="cell-content">
+                    <div class="date-info">
+                      <span class="date-primary">{{ element.date | date : "MMM dd, yyyy" }}</span>
+                      <span class="date-secondary">{{ element.date | date : "EEEE" }}</span>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
 
-          <!-- Table_No Column -->
-          <ng-container matColumnDef="table_no">
-            <th mat-header-cell *matHeaderCellDef>Table_No</th>
-            <td mat-cell *matCellDef="let element">{{ element.table }}</td>
-          </ng-container>
+              <!-- Time_slot Column -->
+              <ng-container matColumnDef="time_slot">
+                <th mat-header-cell *matHeaderCellDef class="table-header-cell">
+                  <div class="header-content">
+                    <mat-icon>access_time</mat-icon>
+                    <span>Time Slot</span>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-cell">
+                  <div class="cell-content">
+                    <div class="time-slot">
+                      <mat-icon class="time-icon">schedule</mat-icon>
+                      <span>{{ element.time_slot }}:00 - {{ element.time_slot + 1 }}:00</span>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
 
-          <!-- Special_request Column -->
-          <ng-container matColumnDef="special_request">
-            <th mat-header-cell *matHeaderCellDef>Special_request</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.special_request }}
-            </td>
-          </ng-container>
+              <!-- Table_No Column -->
+              <ng-container matColumnDef="table_no">
+                <th mat-header-cell *matHeaderCellDef class="table-header-cell">
+                  <div class="header-content">
+                    <mat-icon>restaurant</mat-icon>
+                    <span>Table</span>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-cell">
+                  <div class="cell-content">
+                    <div class="table-number">
+                      <div class="table-circle">{{ element.table }}</div>
+                      <span>Table {{ element.table }}</span>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
 
-          <!-- Status Column -->
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-            <td mat-cell *matCellDef="let element">{{ element.status }}</td>
-          </ng-container>
+              <!-- Special_request Column -->
+              <ng-container matColumnDef="special_request">
+                <th mat-header-cell *matHeaderCellDef class="table-header-cell">
+                  <div class="header-content">
+                    <mat-icon>note</mat-icon>
+                    <span>Special Request</span>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-cell">
+                  <div class="cell-content">
+                    <div class="special-request">
+                      <span *ngIf="element.special_request; else noRequest">{{ element.special_request }}</span>
+                      <ng-template #noRequest>
+                        <span class="no-request">No special requests</span>
+                      </ng-template>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
 
-          <!-- Change Status Column -->
-          <ng-container matColumnDef="change_status">
-            <th mat-header-cell *matHeaderCellDef>Action</th>
-            <td mat-cell *matCellDef="let element">
-              <button
-                *ngIf="
-                  element.status === 'booked' || element.status === 'Ordered'
-                "
-                mat-raised-button
-                color="primary"
-                (click)="CancelTable(element)"
-              >
-                Cancel</button
-              >&nbsp;&nbsp;
-              <!-- <button *ngIf="element.status === 'booked'" routerLink="/menu" mat-raised-button color="primary">Add Order</button>&nbsp;&nbsp; -->
-              <button
-                *ngIf="element.status === 'Completed'"
-                mat-raised-button
-                color="primary"
-                (click)="onGiveFeedbackClick(element)"
-              >
-                FeedBack</button
-              >&nbsp; 
-              <button
-                *ngIf="element.status === 'Ordered'"
-                mat-raised-button
-                color="primary"
-                (click)="getOrders(element._id)"
-              >
-                View Order
+              <!-- Status Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header-cell">
+                  <div class="header-content">
+                    <mat-icon>info</mat-icon>
+                    <span>Status</span>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-cell">
+                  <div class="cell-content">
+                    <div class="status-badge" [ngClass]="'status-' + element.status.toLowerCase()">
+                      <mat-icon class="status-icon">
+                        {{ element.status === 'booked' ? 'event_seat' : 
+                           element.status === 'Ordered' ? 'restaurant_menu' : 
+                           element.status === 'Completed' ? 'check_circle' : 'cancel' }}
+                      </mat-icon>
+                      <span>{{ element.status }}</span>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- Actions Column -->
+              <ng-container matColumnDef="change_status">
+                <th mat-header-cell *matHeaderCellDef class="table-header-cell">
+                  <div class="header-content">
+                    <mat-icon>settings</mat-icon>
+                    <span>Actions</span>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let element" class="table-cell">
+                  <div class="cell-content">
+                    <div class="action-buttons">
+                      <button
+                        *ngIf="element.status === 'booked' || element.status === 'Ordered'"
+                        mat-raised-button
+                        color="warn"
+                        class="action-btn cancel-btn"
+                        (click)="CancelTable(element)">
+                        <mat-icon>cancel</mat-icon>
+                        <span>Cancel</span>
+                      </button>
+
+                      <button
+                        *ngIf="element.status === 'Completed'"
+                        mat-raised-button
+                        color="primary"
+                        class="action-btn feedback-btn"
+                        (click)="onGiveFeedbackClick(element)">
+                        <mat-icon>rate_review</mat-icon>
+                        <span>Feedback</span>
+                      </button>
+
+                      <button
+                        *ngIf="element.status === 'Ordered'"
+                        mat-raised-button
+                        color="accent"
+                        class="action-btn view-btn"
+                        (click)="getOrders(element._id)">
+                        <mat-icon>visibility</mat-icon>
+                        <span>View Order</span>
+                      </button>
+
+                      <button
+                        *ngIf="element.status === 'Completed'"
+                        mat-raised-button
+                        color="primary"
+                        class="action-btn download-btn"
+                        (click)="Billing(element._id,'download',element)">
+                        <mat-icon>download</mat-icon>
+                        <span>Invoice</span>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-header-row"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table-row"></tr>
+            </table>
+
+            <!-- Empty State -->
+            <div *ngIf="dataSource.data.length === 0" class="empty-state">
+              <div class="empty-icon">
+                <mat-icon>event_busy</mat-icon>
+              </div>
+              <h3>No Orders Found</h3>
+              <p>You haven't made any table reservations yet.</p>
+              <button mat-raised-button color="primary" routerLink="/table-booking" class="cta-button">
+                <mat-icon>add</mat-icon>
+                <span>Book Your First Table</span>
               </button>
-              &nbsp;
-              <button
-                *ngIf="element.status === 'Completed'"
-                mat-raised-button
-                color="primary"
-                (click)="Billing(element._id,'download',element)"
-                             
-              >
-                Download Invoice
-              </button>
-            </td>
-          </ng-container>
+            </div>
+          </div>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-
-        <mat-paginator
-          [pageSizeOptions]="[5, 10, 25, 100]"
-          aria-label="Select page of users"
-        >
-        </mat-paginator>
+          <!-- Pagination -->
+          <div class="pagination-wrapper">
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page of orders"
+              class="modern-paginator">
+            </mat-paginator>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,95 +1,136 @@
-<div>
+<div class="cart-page">
     <app-header></app-header>
     <div class="row">
         <div class="col-md-2">
             <app-sidebar></app-sidebar>
         </div>
         <div class="col-md-10">
-
-
-
-            <ng-container *ngIf="products.length !=0">
-
-                <h3 class="heading">My cart</h3>
-                <div class="container">
-                    <div class="card-table">
-                        <div class="cart-product">
-                            <table class="table table-responsive">
-                                <thead>
-                                    <tr>
-                                        <th>Sr.No</th>
-                                        <th>Item Name</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of products; let i = index">
-                                        <td style="width: 10%;">{{i+1}}</td>
-                                        <td style="width: 20%;">{{item.item_name}}</td>
-                                        <td style="width: 20%;">{{item.price}}</td>
-
-                                        <td style="width: 20%;">
-                                            <button class="btn btn-primary btn-sm" (click)="decrement(i)"
-                                                (click)="Total()">-</button>
-                                            <span> {{counters[i]}} </span>
-                                            <button class="btn btn-primary btn-sm" (click)="increment(i,item)"
-                                                (click)="Total()">+</button>
-                                        </td>
-                                        <td style="width: 20%;">{{(item.price)*counters[i]}}</td>
-                                        <ng-container matColumnDef="action">
-                                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
-                                            <button (click)="removeItem(item)" (click)="Total()" mat-icon-button
-                                                color="warn">
-                                                <mat-icon>delete</mat-icon>
-                                            </button>
-
-                                        </ng-container>
-
-
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2"></td>
-                                        <td>
-
-                                            <button class="btn btn-danger" (click)="emptyCart()">Empty Cart</button>
-                                        </td>
-                                        <td> <button routerLink="/menu" class="btn btn-primary">Add More</button></td>
-                                        <td> <button class="btn btn-success" style (click)="Total()"
-                                                (click)="addDB(products)" (click)="openDialog()" [(ngModel)]="Payment">Checkout</button></td>
-                                        <td><strong>Grand Total:&#8377;{{totalprice}}</strong></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-
-                            </table>
-
+            <div class="cart-container">
+                <!-- Cart with Items -->
+                <ng-container *ngIf="products.length != 0">
+                    <!-- Page Header -->
+                    <div class="page-header">
+                        <div class="header-content">
+                            <h1 class="page-title">My Cart</h1>
+                            <p class="page-subtitle">Review your items before checkout</p>
+                        </div>
+                        <div class="header-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <mat-icon>shopping_cart</mat-icon>
+                                </div>
+                                <div class="stat-info">
+                                    <span class="stat-number">{{products.length}}</span>
+                                    <span class="stat-label">Items in Cart</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                </div>
-            </ng-container>
+                    <!-- Cart Items -->
+                    <div class="cart-items-section">
+                        <div class="cart-items-container">
+                            <div class="cart-item" *ngFor="let item of products; let i = index">
+                                <div class="item-image">
+                                    <img src="../../../../assets/restaurant_menu.png" [alt]="item.item_name">
+                                </div>
+                                
+                                <div class="item-details">
+                                    <h3 class="item-name">{{item.item_name}}</h3>
+                                    <p class="item-price">₹{{item.price}} each</p>
+                                </div>
 
+                                <div class="quantity-controls">
+                                    <button mat-icon-button class="quantity-btn" (click)="decrement(i)" (click)="Total()">
+                                        <mat-icon>remove</mat-icon>
+                                    </button>
+                                    <span class="quantity-display">{{counters[i]}}</span>
+                                    <button mat-icon-button class="quantity-btn" (click)="increment(i,item)" (click)="Total()">
+                                        <mat-icon>add</mat-icon>
+                                    </button>
+                                </div>
 
-            <ng-container *ngIf="products.length ==0">
-                <div class="container">
-                    <div class="card">
-                        <h3 class="card-title" style="text-align: center; font-size: 20px;"> My Cart</h3>
-                    </div>
-                    <div class="center">
-                        <img src="../../../assets/bag.svg" alt="">
-                        <h2>Your cart is empty!</h2>
-                        <h4>Add item to it now</h4>
+                                <div class="item-total">
+                                    <span class="total-price">₹{{(item.price)*counters[i]}}</span>
+                                </div>
 
-                        <div class="example-button-row">
-                            <button mat-raised-button color="primary" routerLink="/menu" class="addmenubtn">Add
-                                menu</button>
+                                <div class="item-actions">
+                                    <button mat-icon-button class="remove-btn" (click)="removeItem(item)" (click)="Total()">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cart Summary -->
+                        <div class="cart-summary">
+                            <div class="summary-card">
+                                <h3 class="summary-title">Order Summary</h3>
+                                
+                                <div class="summary-row">
+                                    <span>Subtotal</span>
+                                    <span>₹{{totalprice}}</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Delivery Fee</span>
+                                    <span>₹30</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Taxes (5%)</span>
+                                    <span>₹{{(totalprice * 0.05).toFixed(0)}}</span>
+                                </div>
+                                <div class="summary-divider"></div>
+                                <div class="summary-row total-row">
+                                    <span>Grand Total</span>
+                                    <span>₹{{(totalprice + 30 + (totalprice * 0.05)).toFixed(0)}}</span>
+                                </div>
+
+                                <div class="action-buttons">
+                                    <button mat-stroked-button class="empty-cart-btn" (click)="emptyCart()">
+                                        <mat-icon>delete_sweep</mat-icon>
+                                        <span>Empty Cart</span>
+                                    </button>
+                                    
+                                    <button mat-raised-button class="add-more-btn" routerLink="/menu">
+                                        <mat-icon>add</mat-icon>
+                                        <span>Add More</span>
+                                    </button>
+                                    
+                                    <button mat-raised-button color="primary" class="checkout-btn" 
+                                            (click)="Total()" (click)="addDB(products)" (click)="openDialog()">
+                                        <mat-icon>payment</mat-icon>
+                                        <span>Checkout</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </ng-container>
+                </ng-container>
+
+                <!-- Empty Cart -->
+                <ng-container *ngIf="products.length == 0">
+                    <div class="empty-cart-section">
+                        <div class="empty-cart-card">
+                            <div class="empty-cart-content">
+                                <div class="empty-cart-icon">
+                                    <mat-icon>shopping_cart</mat-icon>
+                                </div>
+                                <h2 class="empty-cart-title">Your cart is empty!</h2>
+                                <p class="empty-cart-subtitle">Looks like you haven't added any items to your cart yet.</p>
+                                
+                                <div class="empty-cart-image">
+                                    <img src="../../../assets/empty-cart.png" alt="Empty Cart">
+                                </div>
+                                
+                                <button mat-raised-button color="primary" class="browse-menu-btn" routerLink="/menu">
+                                    <mat-icon>restaurant_menu</mat-icon>
+                                    <span>Browse Menu</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
         </div>
     </div>
 </div>

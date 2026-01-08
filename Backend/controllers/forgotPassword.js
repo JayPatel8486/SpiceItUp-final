@@ -10,8 +10,9 @@ const cred = require('../constants/const')
 const updatePassword = async (req, res) => {
   try {
     const { email, route } = req.body;
+
     const useremail = await register.findOne({ email: email });
-    let otpCode = Math.floor(Math.random() * 300000);
+    const otpCode = Math.floor(100000 + Math.random() * 900000);
 
     if (!useremail) {
       res.status(401).send("Wrong email");
@@ -53,6 +54,7 @@ const updatePassword = async (req, res) => {
       otpType
     });
     let otpResponse = await otpData.save();
+    console.log("+++++++++++++++++++++++", otpResponse);
 
     if (route === cred.OTPTYPE.type1) {
       return otpResponse;
@@ -70,6 +72,8 @@ const updatePassword = async (req, res) => {
 const checkotp = async (req, res) => {
   try {
     const { routeType, otp: { otp, email } } = req.body;
+    console.log(req.body);
+
     let compareotp = await forgotPassword.findOne({ otp, otpType: routeType, email });
     if (!compareotp) {
       return res.status(401).send("not verified");
@@ -82,7 +86,8 @@ const checkotp = async (req, res) => {
     if (routeType === cred.OTPTYPE.type1) {
       let result = compareotp.toObject();
       let token = jwt.sign({ email }, process.env.SECRET_KEY, { expiresIn: "4h" });
-      result.token = token
+      result.token = token;
+      await forgotPassword.deleteOne({ otp, otpType: routeType, email });
       return res.status(200).send(result);
     }
     return res.status(200).send(compareotp);

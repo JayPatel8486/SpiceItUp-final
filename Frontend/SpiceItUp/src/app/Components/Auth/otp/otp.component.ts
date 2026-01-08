@@ -4,8 +4,6 @@ import { CheckOtpService } from 'src/app/services/check-otp.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-
-
 @Component({
   selector: 'app-otp',
   templateUrl: './otp.component.html',
@@ -13,10 +11,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class OtpComponent implements OnInit {
   nametodisplay: any;
-  constructor(private fb: FormBuilder, private checkOtpService: CheckOtpService, private router: Router, private route: ActivatedRoute, private toastr: ToastrService) { }
-
+  userOtp: any;
   checkOtp: FormGroup = new FormGroup({});
 
+  constructor(private fb: FormBuilder, private checkOtpService: CheckOtpService, private router: Router, private route: ActivatedRoute, private toastr: ToastrService) { }
   ngOnInit(): void {
     console.log("state value bypass by forgot password component", history.state)
     this.checkOtp = this.fb.group({
@@ -24,8 +22,6 @@ export class OtpComponent implements OnInit {
       otp: ['', [Validators.required]],
     });
   }
-
-  userOtp: any
 
   otp(data: any) {
     if (history.state.route === 'forgot_password') {
@@ -55,6 +51,7 @@ export class OtpComponent implements OnInit {
         this.nametodisplay = params;
       });
       this.checkOtp.value.email = this.nametodisplay.email;
+      console.log({ email: this.checkOtp.value.email, otp: this.checkOtp.value, routeType: history.state.route });
 
       this.checkOtpService.check({ email: this.checkOtp.value.email, otp: this.checkOtp.value, routeType: history.state.route }).subscribe({
         next: (result: any) => {

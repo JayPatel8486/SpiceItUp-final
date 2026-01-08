@@ -1,66 +1,101 @@
-<div style="overflow-x: hidden;">
+<div class="page-wrapper">
     <app-header></app-header>
     <div class="row">
         <div class="col-md-2">
             <app-sidebar></app-sidebar>
         </div>
         <div class="col-md-10">
+            <div class="booking-container">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Reserve Your Table</h1>
+                        <p class="hero-subtitle">Experience fine dining at its best</p>
+                    </div>
+                    <div class="hero-image">
+                        <img src="../../../../assets/table_booking.jpeg" alt="Restaurant Interior">
+                    </div>
+                </div>
 
-            <div class="image">
-                <img class="img-responsive" src="../../../../assets/table_booking.jpeg" alt="table_image">
-            </div>
+                <div class="booking-form-section">
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h2>Table Booking</h2>
+                            <p>Select your preferred date, time, and table</p>
+                        </div>
 
-            <div class="container">
+                        <form [formGroup]="tablebookingform" (ngSubmit)="book(tablebookingform.value)" class="booking-form">
+                            <div class="form-row">
+                                <mat-form-field class="form-field" appearance="outline">
+                                    <mat-label>Choose a date*</mat-label>
+                                    <input matInput formControlName="date" name="date" [matDatepicker]="picker" [min]="minDate"
+                                        [max]="maxDate" placeholder="Select date" (dateInput)="toggleDisable()" required>
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker">
+                                        <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #picker>
+                                        <mat-datepicker-actions>
+                                            <button mat-button matDatepickerCancel>Cancel</button>
+                                            <button mat-raised-button color="primary" matDatepickerApply (click)="onAdded()">Apply</button>
+                                        </mat-datepicker-actions>
+                                    </mat-datepicker>
+                                </mat-form-field>
 
-                <h2 class="font">Table booking</h2>
-                <form [formGroup]="tablebookingform" (ngSubmit)="book(tablebookingform.value)">
+                                <mat-form-field appearance="outline" class="form-field">
+                                    <mat-label>Select Time-slot*</mat-label>
+                                    <mat-select formControlName="time_slot" name="time_slot" required>
+                                        <mat-option *ngFor="let time of times" [value]="time.value" (click)="onAdded()"
+                                            [disabled]='disableTextbox'>{{time.viewValue}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon matSuffix>access_time</mat-icon>
+                                    <mat-error *ngIf="tablebookingform.hasError('required', 'date')">
+                                        Please select date first!</mat-error>
+                                </mat-form-field>
+                            </div>
 
-                    <mat-form-field class="example-full-width" appearance="fill" sticky>
-                        <mat-label>Choose a date</mat-label>
-                        <input matInput formControlName="date" name="date" [matDatepicker]="picker" [min]="minDate"
-                            [max]="maxDate" placeholder="MM/DD/YYYY" (dateInput)="toggleDisable()" required>
-                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker>
-                        <mat-datepicker-actions>
-                            <button mat-button matDatepickerCancel>Cancel</button>
-                            <button mat-raised-button color="primary" matDatepickerApply (click)="onAdded()">Apply</button>
-                          </mat-datepicker-actions>
-                        </mat-datepicker>
-                    </mat-form-field><br>
+                            <div class="form-row">
+                                <mat-form-field appearance="outline" class="form-field">
+                                    <mat-label>Select Table*</mat-label>
+                                    <mat-select formControlName="table" name="table" required>
+                                        <mat-option *ngFor="let dat of data" [value]="dat">Table No. {{dat}}</mat-option>
+                                    </mat-select>
+                                    <mat-icon matSuffix>restaurant</mat-icon>
+                                </mat-form-field>
 
-                    <mat-form-field appearance="fill" class="example-full-width" matInput>
-                        <mat-label>Select Time-slot</mat-label>
-                        <mat-select formControlName="time_slot" name="time_slot" required>
-                            <mat-option *ngFor="let time of times" [value]="time.value" (click)="onAdded()"
-                                [disabled]='disableTextbox'>{{time.viewValue}}</mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="tablebookingform.hasError('required', 'date')">
-                            Please select date first!</mat-error>
-                    </mat-form-field><br>
+                                <mat-form-field appearance="outline" class="form-field">
+                                    <mat-label>Special requests</mat-label>
+                                    <textarea matInput #input formControlName="request" name="request" maxlength="100"
+                                        placeholder="Any special requirements?" rows="3"></textarea>
+                                    <mat-hint align="end">{{input.value.length}}/100</mat-hint>
+                                </mat-form-field>
+                            </div>
 
-                    <mat-form-field appearance="fill" class="example-full-width">
-                        <mat-label>Select Table</mat-label>
-                        <mat-select formControlName="table" name="table" required>
-                            <mat-option *ngFor="let dat of data" [value]="dat">Table No.- {{dat}}</mat-option>
-                        </mat-select>
-                    </mat-form-field><br>
-
-                    <mat-form-field appearance="fill" class="example-full-width">
-                        <mat-label>Special requests</mat-label>
-                        <textarea matInput #input formControlName="request" name="request" maxlength="100"
-                            placeholder=""></textarea>
-                        <mat-hint align="end">{{input.value.length}}/100</mat-hint>
-                    </mat-form-field>
-
-                    <div class="buttonHolder">
-                        <button mat-raised-button color="primary" type="submit" class="bnt" (click)="openDialog()"
-                            [disabled]="tablebookingform.invalid"> <span>Book Table</span></button>
+                            <div class="form-actions">
+                                <button mat-raised-button color="primary" type="submit" class="book-btn" (click)="openDialog()"
+                                    [disabled]="tablebookingform.invalid">
+                                    <mat-icon>event_seat</mat-icon>
+                                    <span>Book Table</span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
 
-                </form>
-
+                    <div class="table-layout">
+                        <div class="layout-header">
+                            <h3>Restaurant Layout</h3>
+                            <p>Choose your preferred seating</p>
+                        </div>
+                        <div class="table-map">
+                            <!-- Table layout visualization -->
+                            <div class="table-grid">
+                                <div class="table-item" *ngFor="let table of [1,2,3,4,5,6,7,8,9,10]">
+                                    <div class="table-circle">{{table}}</div>
+                                    <div class="table-label">Table {{table}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 </div>

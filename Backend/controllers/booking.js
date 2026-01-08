@@ -34,7 +34,7 @@ const checkAvailableBooking = async (req, res) => {
         const timeStamp = req.query;
         const reservations = await table_orders.find(timeStamp);
         const tables = reservations.map(r => r.table);
-        const Availabletables = totalTables.filter(t => !tables.includes(t));
+        const Availabletables = totalTables.totalTables.filter(t => !tables.includes(t));
         if (Availabletables.length === 0) {
             console.log("No tables available for the given time");
             return res.status(400).send("No tables available for the selected time");

@@ -1,77 +1,105 @@
-<div>
+<div class="profile-wrapper">
   <app-header></app-header>
-  <div class="row">
-    <div class="col-md-2">
-      <app-sidebar></app-sidebar>
-    </div>
-    <div class="col-md-10">
-      <br />
-      <div class="col-md-12">
-        <h1>&nbsp; Profile :</h1>
-      </div>
-      <div class="float-end">
-        <div class="example-button-row col d-flex justify-content-end col-md-12">
-          <button mat-raised-button button color="primary" (click)="updateProfile()">
-            {{toggle ? "Update Profile" : "Cancel"}}</button>&nbsp;
-          <div class="example-button-row col">
-            <a>
-              <button mat-raised-button color="primary" routerLink="/userChangePassword">Change Password</button>
-            </a>
-          </div>
-        </div>
-      </div>
-      <br /><br />
-      <form class="example-form col-md-12" [formGroup]="updateProfileForm">
-        <br />
-
-        <mat-form-field class="example-full-width">
-          <mat-label>First Name : </mat-label>
-          <input matInput [ngStyle]="{'color': 'black' }" name="firstName" ngModel="{{ users.user.first_name }}"
-            formControlName="first_name" />
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <mat-label>Last Name :</mat-label>
-          <input matInput [ngStyle]="{ color: 'black' }" name="lastName" ngModel="{{ users.user.last_name }}"
-            formControlName="last_name" />
-        </mat-form-field>
-
-        <!-- <mat-form-field class="example-full-width"> -->
-        <label class="Gender">Gender: </label>
-        <mat-radio-group aria-label="Select an option" name="gender" formControlName="gender"
-          ngModel="{{ users.user.gender }}">
-          <mat-radio-button value="Male">Male</mat-radio-button>
-          <mat-radio-button value="Female">Female</mat-radio-button>
-        </mat-radio-group>
-
-        <br><br>
-        <mat-form-field class="example-full-width">
-          <mat-label>Contact No :</mat-label>
-          <input matInput [ngStyle]="{ color: 'black' }" name="contactNo" ngModel="{{ users.user.phone }}"
-            formControlName="phone" />
-        </mat-form-field>
-
-        <mat-form-field class="example-full-width">
-          <mat-label>Email :</mat-label>
-          <input matInput [ngStyle]="{'color': 'black' }" name="email" ngModel="{{ users.user.email }}"
-            formControlName="email" />
-        </mat-form-field>
-        <div class="row">
-          <div class="example-button-row col">
-            <button mat-raised-button class="colorchange" color="primary" [disabled]="updateProfileForm.invalid"
-              (click)="btnUpdate()" [hidden]="toggle">
-              Update
-            </button>&nbsp;
-
-            <button mat-raised-button class="colorchange" color="primary" [disabled]="updateProfileForm.invalid"
-              (click)="btndelete()" [hidden]="toggle">
-              Delete
+  
+  <div class="profile-container">
+    <div class="profile-content">
+      <!-- Profile Header -->
+      <div class="profile-header">
+        <div class="profile-avatar-section">
+          <div class="avatar-container">
+            <img src="../../../../assets/default-avatar.png" alt="Profile" class="profile-avatar">
+            <button class="avatar-edit-btn" mat-mini-fab>
+              <mat-icon>camera_alt</mat-icon>
             </button>
           </div>
+          <div class="profile-info">
+            <h1 class="profile-name">{{users.user?.first_name}} {{users.user?.last_name}}</h1>
+            <p class="profile-email">{{users.user?.email}}</p>
+            <div class="profile-stats">
+              <div class="stat-item">
+                <span class="stat-number">12</span>
+                <span class="stat-label">Orders</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">4.8</span>
+                <span class="stat-label">Rating</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <br /><br /><br />
-      </form>
+        
+        <div class="profile-actions">
+          <button mat-flat-button class="edit-btn" (click)="updateProfile()">
+            <mat-icon>{{toggle ? 'edit' : 'close'}}</mat-icon>
+            {{toggle ? "Edit Profile" : "Cancel"}}
+          </button>
+          <button mat-stroked-button class="password-btn" routerLink="/userChangePassword">
+            <mat-icon>lock</mat-icon>
+            Change Password
+          </button>
+          <button mat-stroked-button class="home-btn" routerLink="/home">
+            <mat-icon>home</mat-icon>
+            Go to Home
+          </button>
+        </div>
+      </div>
 
+      <!-- Profile Form -->
+      <div class="profile-form-section">
+        <form [formGroup]="updateProfileForm" class="profile-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="first_name" [value]="users.user?.first_name">
+                <mat-icon matPrefix>person</mat-icon>
+              </mat-form-field>
+            </div>
+            
+            <div class="form-group">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="last_name" [value]="users.user?.last_name">
+              </mat-form-field>
+            </div>
+            
+            <div class="form-group">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" [value]="users.user?.email">
+                <mat-icon matPrefix>email</mat-icon>
+              </mat-form-field>
+            </div>
+            
+            <div class="form-group">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="phone" [value]="users.user?.phone">
+                <mat-icon matPrefix>phone</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+          
+          <div class="gender-section">
+            <label class="gender-label">Gender</label>
+            <mat-radio-group formControlName="gender" class="gender-group" [value]="users.user?.gender">
+              <mat-radio-button value="Male">Male</mat-radio-button>
+              <mat-radio-button value="Female">Female</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          
+          <div class="form-actions" [hidden]="toggle">
+            <button mat-flat-button class="save-btn" [disabled]="updateProfileForm.invalid" (click)="btnUpdate()">
+              <mat-icon>save</mat-icon>
+              Save Changes
+            </button>
+            <button mat-stroked-button class="delete-btn" (click)="btndelete()">
+              <mat-icon>delete</mat-icon>
+              Delete Account
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-  <br /><br /><br />
+</div>
