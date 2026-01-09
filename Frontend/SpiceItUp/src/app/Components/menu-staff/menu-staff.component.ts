@@ -33,7 +33,6 @@ export class MenuStaffComponent implements OnInit {
 
   constructor(private api: AddmenuService, private dialog: MatDialog, private http: HttpClient) { }
   ngOnInit(): void {
-
     this.getProduct();
   }
 

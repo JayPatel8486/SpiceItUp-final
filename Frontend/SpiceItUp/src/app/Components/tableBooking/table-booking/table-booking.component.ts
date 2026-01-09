@@ -1,6 +1,6 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DatePipe } from '@angular/common';
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   NgForm,
   FormControl,
@@ -39,8 +39,8 @@ export class TableBookingComponent {
     private datePipe: DatePipe,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    
-  ) {}
+
+  ) { }
 
   tablebookingform: FormGroup = new FormGroup({});
 
@@ -61,7 +61,7 @@ export class TableBookingComponent {
   toggleDisable() {
     this.disableTextbox = false;
   }
-  
+
   books: any;
   book(booking: any) {
     const body = this.tablebookingform.value;
@@ -97,8 +97,11 @@ export class TableBookingComponent {
   }
 
   onAdded() {
+    // console.log("date:::::", typeof this.date);
+    if (this.date == '') return;
+
     let timeStamp = new Date(
-      this.date?.getFullYear(),
+      this.date.getFullYear(),
       this.date.getMonth(),
       this.date.getDate(),
       this.time_slot,

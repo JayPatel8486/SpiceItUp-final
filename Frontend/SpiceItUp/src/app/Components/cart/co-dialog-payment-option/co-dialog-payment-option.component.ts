@@ -66,7 +66,7 @@ export class CoDialogPaymentOptionComponent implements OnInit{
   }
 
   invokeStripe() {
-    if (!window.document.getElementById('stripe-script')) {
+    if (!window?.document?.getElementById('stripe-script')) {
       const script = window.document.createElement('script');
       script.id = 'stripe-script';
       script.type = 'text/javascript';

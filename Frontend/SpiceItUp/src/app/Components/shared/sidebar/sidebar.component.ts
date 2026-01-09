@@ -7,7 +7,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit,AfterViewInit {
+export class SidebarComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
   constructor(private route: Router, private observer: BreakpointObserver) { }
@@ -21,9 +21,6 @@ export class SidebarComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit() {
-
-    
-
     this.adminUser();
     this.staffUser();
   }
@@ -52,6 +49,7 @@ export class SidebarComponent implements OnInit,AfterViewInit {
 
   ngAfterViewInit() {
     this.observer.observe(["(max-width: 600px)"]).subscribe((res: any) => {
+      if (!this.sidenav) return;
       if (res.matches) {
         this.sidenav.mode = "over";
         this.sidenav.close();

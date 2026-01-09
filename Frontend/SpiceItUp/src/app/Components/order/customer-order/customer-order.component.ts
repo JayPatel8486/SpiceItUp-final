@@ -179,147 +179,147 @@ export class CustomerOrderComponent implements OnInit {
       next: (orders) => {
         this.orders = orders;
         console.log('Order Details:', this.orders);
-      
 
-    try {
-      console.log('customername', data.userId.first_name);
-      console.log('Menu orders', this.orders);
 
-      data.date = this.datePipe.transform(data.date, 'yyyy-MM-dd');
+        try {
+          console.log('customername', data.userId.first_name);
+          console.log('Menu orders', this.orders);
 
-      console.log('11', data);
-      let docDefinition = {
-        content: [
-          {
-            text: 'SpiceItUp',
-            fontSize: 25,
-            alignment: 'center',
-            color: 'black',
-            margin: [0, 0, 0, 15],
-          },
-          {
-            text: 'INVOICE',
-            fontSize: 20,
-            bold: true,
-            alignment: 'center',
-            decoration: 'underline',
-            color: 'black',
-          },
-          {
-            text: 'Customer Details',
-            style: 'sectionHeader',
-          },
-          {
-            columns: [
-              [
-                {
-                  text: 'Name : ' + data.userId.first_name,
-                  bold: true,
-                },
-                { text: 'Email : ' + data.userId.email },
-                { text: 'Phone : ' + data.userId.phone },
-              ],
-              [
-                {
-                  text: `Date: ${new Date().toLocaleString()}`,
-                  alignment: 'right',
-                },
-                {
-                  text: `Bill No : ${(Math.random() * 1000).toFixed(0)}`,
-                  alignment: 'right',
-                },
-              ],
-            ],
-          },
-          {
-            text: 'Order Details',
-            style: 'sectionHeader',
-          },
-          {
-            table: {
-              headerRows: 1,
-              widths: ['*', 'auto', 'auto', 'auto'],
-              body: [
-                ['Menu_items', 'Quantity', 'Price', 'Amount'],
-                ...this.orders[0].order_items.map((p) => [
-                  p.item_name,
-                  p.quantity,
-                  p.price,
-                  (p.price * p.quantity).toFixed(2),
-                ]),
-                [
-                  { text: 'Total Amount', colSpan: 3 },
-                  {},
-                  {},
-                  this.orders[0].order_items
-                    .reduce((sum, p) => sum + p.quantity * p.price, 0)
-                    .toFixed(2),
+          data.date = this.datePipe.transform(data.date, 'yyyy-MM-dd');
+
+          console.log('11', data);
+          let docDefinition = {
+            content: [
+              {
+                text: 'SpiceItUp',
+                fontSize: 25,
+                alignment: 'center',
+                color: 'black',
+                margin: [0, 0, 0, 15],
+              },
+              {
+                text: 'INVOICE',
+                fontSize: 20,
+                bold: true,
+                alignment: 'center',
+                decoration: 'underline',
+                color: 'black',
+              },
+              {
+                text: 'Customer Details',
+                style: 'sectionHeader',
+              },
+              {
+                columns: [
+                  [
+                    {
+                      text: 'Name : ' + data.userId.first_name,
+                      bold: true,
+                    },
+                    { text: 'Email : ' + data.userId.email },
+                    { text: 'Phone : ' + data.userId.phone },
+                  ],
+                  [
+                    {
+                      text: `Date: ${new Date().toLocaleString()}`,
+                      alignment: 'right',
+                    },
+                    {
+                      text: `Bill No : ${(Math.random() * 1000).toFixed(0)}`,
+                      alignment: 'right',
+                    },
+                  ],
                 ],
-              ],
-            },
-          },
-          {
-            text: 'Table Booking Details',
-            style: 'sectionHeader',
-          },
-          {
-            text: 'Date : ' + data.date,
-            margin: [0, 0, 0, 10],
-          },
-          {
-            text: 'Time : ' + data.time_slot,
-            margin: [0, 0, 0, 10],
-          },
-          {
-            text: 'Table : ' + data.table,
-            margin: [0, 0, 0, 10],
-          },
-          {
-            columns: [
-              [{ qr: `https://paytm.com/`, fit: '50' }],
-              [{ text: 'Signature', alignment: 'right', italics: true }],
+              },
+              {
+                text: 'Order Details',
+                style: 'sectionHeader',
+              },
+              {
+                table: {
+                  headerRows: 1,
+                  widths: ['*', 'auto', 'auto', 'auto'],
+                  body: [
+                    ['Menu_items', 'Quantity', 'Price', 'Amount'],
+                    ...this.orders[0].order_items.map((p) => [
+                      p.item_name,
+                      p.quantity,
+                      p.price,
+                      (p.price * p.quantity).toFixed(2),
+                    ]),
+                    [
+                      { text: 'Total Amount', colSpan: 3 },
+                      {},
+                      {},
+                      this.orders[0].order_items
+                        .reduce((sum, p) => sum + p.quantity * p.price, 0)
+                        .toFixed(2),
+                    ],
+                  ],
+                },
+              },
+              {
+                text: 'Table Booking Details',
+                style: 'sectionHeader',
+              },
+              {
+                text: 'Date : ' + data.date,
+                margin: [0, 0, 0, 10],
+              },
+              {
+                text: 'Time : ' + data.time_slot,
+                margin: [0, 0, 0, 10],
+              },
+              {
+                text: 'Table : ' + data.table,
+                margin: [0, 0, 0, 10],
+              },
+              {
+                columns: [
+                  [{ qr: `https://paytm.com/`, fit: '50' }],
+                  [{ text: 'Signature', alignment: 'right', italics: true }],
+                ],
+                margin: [0, 0, 0, 10],
+              },
+              // {
+              //   text: 'Terms and Conditions',
+              //   style: 'sectionHeader',
+              // },
+              {
+                text: ['*This is system generated invoice.'],
+              },
             ],
-            margin: [0, 0, 0, 10],
-          },
-          // {
-          //   text: 'Terms and Conditions',
-          //   style: 'sectionHeader',
-          // },
-          {
-            text: ['*This is system generated invoice.'],
-          },
-        ],
-        styles: {
-          sectionHeader: {
-            bold: true,
-            decoration: 'underline',
-            fontSize: 14,
-            margin: [0, 15, 0, 15],
-          },
-        },
-      };
+            styles: {
+              sectionHeader: {
+                bold: true,
+                decoration: 'underline',
+                fontSize: 14,
+                margin: [0, 15, 0, 15],
+              },
+            },
+          };
 
-      if (action === 'download') {
-        pdfMake.createPdf(docDefinition).download();
-      }
-    } catch (error: any) {
-      console.log(error);
-      this.toastr.info('You only booked table, so can not generate invoice!', '', {
-        timeOut: 2500,
-        progressBar: true,
-        progressAnimation: 'increasing',
-      });
-    }
+          if (action === 'download') {
+            pdfMake.createPdf(docDefinition).download();
+          }
+        } catch (error: any) {
+          console.log(error);
+          this.toastr.info('You only booked table, so can not generate invoice!', '', {
+            timeOut: 2500,
+            progressBar: true,
+            progressAnimation: 'increasing',
+          });
+        }
 
-  },
-  error: () => {
-    this.toastr.error('Something went wrong!', '', {
-      timeOut: 1000,
-      progressBar: true,
-      progressAnimation: 'increasing',
+      },
+      error: () => {
+        this.toastr.error('Something went wrong!', '', {
+          timeOut: 1000,
+          progressBar: true,
+          progressAnimation: 'increasing',
+        });
+      },
     });
-  },
-});
   }
 
   // async generatePDF(action = 'open', data: any) {

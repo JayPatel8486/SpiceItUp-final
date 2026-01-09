@@ -20,7 +20,7 @@
                 <mat-icon>restaurant_menu</mat-icon>
               </div>
               <div class="stat-info">
-                <span class="stat-number">{{filteredFoodItems.length}}</span>
+                <span class="stat-number">{{filteredFoodItems?.length}}</span>
                 <span class="stat-label">Items Available</span>
               </div>
             </div>
@@ -103,7 +103,7 @@
           </div>
 
           <!-- Empty State -->
-          <div *ngIf="filteredFoodItems.length === 0" class="empty-state">
+          <div *ngIf="filteredFoodItems?.length === 0" class="empty-state">
             <div class="empty-icon">
               <mat-icon>restaurant_menu</mat-icon>
             </div>

@@ -1,9 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/menuapi.service';
 import { CartService } from 'src/app/services/cart.service';
 import { map } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { ContentObserver } from '@angular/cdk/observers';
 
 @Component({
   selector: 'app-menu-item',
@@ -21,31 +20,28 @@ export class MenuItemComponent implements OnInit {
   isBooked!: boolean;
   pagination: number = 1;
   category: any;
-  headerMenu:any
-  
+  headerMenu: any
+  item: any;
+  items: any;
+  filters: any;
+  menudata: any;
+  pageNumber = 0;
+  pageSize = 100;
+  totalPages: any;
+
 
   public originCategory: any;
   foodItems: any[];
   filteredFoodItems: any[];
   originCategories: string[];
 
-
   public bookingId = localStorage.getItem('bookingId');
-
-  item: any;
-  items: any;
-  filters: any;
-  menudata: any;
-  pageNumber = 1;
-  pageSize = 6;
-  totalPages: any;
 
   constructor(
     private api: ApiService,
     private cartService: CartService,
     private toastr: ToastrService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
   url: any = 'http://localhost:4000/image/';
 
   ngOnInit(): void {
@@ -54,12 +50,9 @@ export class MenuItemComponent implements OnInit {
     this.cartService.getProducts().subscribe((res) => {
       this.totalItem = res.length;
     });
-   
+
     this.getHeaderMenu()
   }
-
-
-  // get item
 
   getProduct() {
     this.api.getProduct(this.pageNumber, this.pageSize).subscribe((res) => {
@@ -136,14 +129,15 @@ export class MenuItemComponent implements OnInit {
   // filter (all) categories
 
   AllItemFilter() {
-    this.pageNumber=1
+    this.pageNumber = 0;
+    this.pageSize = 100;
     this.getProduct()
   }
 
   // filter category(expect all)
 
   onOriginCategorySelected(category: string) {
-    this.pageNumber=1
+    this.pageNumber = 1
 
     this.api.filter(category).subscribe((res) => {
 
@@ -160,21 +154,21 @@ export class MenuItemComponent implements OnInit {
   }
 
   // header category 
-  getHeaderMenu(){
+  getHeaderMenu() {
 
     this.api.header().subscribe({
-      next:(res)=>{
+      next: (res) => {
         this.headerMenu = res;
         let test = new Set(this.headerMenu.item_type)
-      
-        for(let item of this.headerMenu){
+
+        for (let item of this.headerMenu) {
           test.add(item.item_type)
-        } 
+        }
         this.headerMenu = test
-        
-       
+
+
       },
-      error:(e)=>{
+      error: (e) => {
         console.log(e)
       }
     })

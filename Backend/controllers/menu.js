@@ -23,7 +23,7 @@ const postMenu = async (req, res) => {
 const getAllMenu = async (req, res) => {
   try {
     const pageNumber = parseInt(req.query.pageNumber) || 1;
-    const pageSize = parseInt(req.query.pageSize) || 6;
+    const pageSize = parseInt(req.query.pageSize);
     const pipeline = [
       {
         $sort: {

@@ -1,13 +1,13 @@
 <div class="profile-wrapper">
   <app-header></app-header>
-  
+
   <div class="profile-container">
     <div class="profile-content">
       <!-- Profile Header -->
       <div class="profile-header">
         <div class="profile-avatar-section">
           <div class="avatar-container">
-            <img src="../../../../assets/default-avatar.png" alt="Profile" class="profile-avatar">
+            <img src="" alt="Profile" class="profile-avatar">
             <button class="avatar-edit-btn" mat-mini-fab>
               <mat-icon>camera_alt</mat-icon>
             </button>
@@ -17,17 +17,17 @@
             <p class="profile-email">{{users.user?.email}}</p>
             <div class="profile-stats">
               <div class="stat-item">
-                <span class="stat-number">12</span>
+                <span class="stat-number">{{this.userOrders?.length}}</span>
                 <span class="stat-label">Orders</span>
               </div>
               <div class="stat-item">
-                <span class="stat-number">4.8</span>
+                <span class="stat-number">Null</span>
                 <span class="stat-label">Rating</span>
               </div>
             </div>
           </div>
         </div>
-        
+
         <div class="profile-actions">
           <button mat-flat-button class="edit-btn" (click)="updateProfile()">
             <mat-icon>{{toggle ? 'edit' : 'close'}}</mat-icon>
@@ -55,14 +55,14 @@
                 <mat-icon matPrefix>person</mat-icon>
               </mat-form-field>
             </div>
-            
+
             <div class="form-group">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Last Name</mat-label>
                 <input matInput formControlName="last_name" [value]="users.user?.last_name">
               </mat-form-field>
             </div>
-            
+
             <div class="form-group">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Email Address</mat-label>
@@ -70,7 +70,7 @@
                 <mat-icon matPrefix>email</mat-icon>
               </mat-form-field>
             </div>
-            
+
             <div class="form-group">
               <mat-form-field appearance="outline" class="full-width">
                 <mat-label>Phone Number</mat-label>
@@ -79,7 +79,7 @@
               </mat-form-field>
             </div>
           </div>
-          
+
           <div class="gender-section">
             <label class="gender-label">Gender</label>
             <mat-radio-group formControlName="gender" class="gender-group" [value]="users.user?.gender">
@@ -87,7 +87,7 @@
               <mat-radio-button value="Female">Female</mat-radio-button>
             </mat-radio-group>
           </div>
-          
+
           <div class="form-actions" [hidden]="toggle">
             <button mat-flat-button class="save-btn" [disabled]="updateProfileForm.invalid" (click)="btnUpdate()">
               <mat-icon>save</mat-icon>

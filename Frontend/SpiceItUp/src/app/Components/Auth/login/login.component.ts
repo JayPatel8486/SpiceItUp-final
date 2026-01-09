@@ -136,13 +136,13 @@ export class LoginComponent implements OnInit {
   }
 
   initListener() {
-    this.ngZone.runOutsideAngular(() => {
-      document.body.addEventListener('click', () => this.reset());
+    this.ngZone?.runOutsideAngular(() => {
+      document?.body?.addEventListener('click', () => this.reset());
     });
   }
 
   initInterval() {
-    this.ngZone.runOutsideAngular(() => {
+    this.ngZone?.runOutsideAngular(() => {
       setInterval(() => {
         this.check();
       }, CHECK_INTERVALL);
@@ -159,7 +159,7 @@ export class LoginComponent implements OnInit {
     const diff = timeleft - now;
     const isTimeout = diff < 0;
 
-    this.ngZone.run(() => {
+    this.ngZone?.run(() => {
       if (isTimeout) {
         console.log(`You were automatically logged out after ${MINUTES_UNITL_AUTO_LOGOUT} minutes of inactivity.`);
         this.onLogOut();

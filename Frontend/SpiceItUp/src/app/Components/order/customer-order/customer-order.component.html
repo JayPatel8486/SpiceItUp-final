@@ -20,7 +20,7 @@
                 <mat-icon>event_seat</mat-icon>
               </div>
               <div class="stat-info">
-                <span class="stat-number">{{dataSource.data.length}}</span>
+                <span class="stat-number">{{dataSource?.data?.length}}</span>
                 <span class="stat-label">Total Orders</span>
               </div>
             </div>
@@ -213,7 +213,7 @@
             </table>
 
             <!-- Empty State -->
-            <div *ngIf="dataSource.data.length === 0" class="empty-state">
+            <div *ngIf="dataSource?.data?.length === 0" class="empty-state">
               <div class="empty-icon">
                 <mat-icon>event_busy</mat-icon>
               </div>
