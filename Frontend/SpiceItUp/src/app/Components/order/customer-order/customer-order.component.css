@@ -329,8 +329,9 @@
 }
 
 .feedback-btn {
-  background: #4caf50;
+  background: linear-gradient(45deg, #ff6b35, #f7931e);;
   color: white;
+  font-size: 10px;
 }
 
 .view-btn {
@@ -339,8 +340,9 @@
 }
 
 .download-btn {
-  background: #9c27b0;
+  background: linear-gradient(45deg, #ff6b35, #f7931e);;
   color: white;
+  font-size: 10px;
 }
 
 .empty-state {

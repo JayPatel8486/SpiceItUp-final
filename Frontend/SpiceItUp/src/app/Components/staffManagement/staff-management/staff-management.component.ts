@@ -15,20 +15,16 @@ import { DialogUpdateStaffComponent } from '../dialog-update-staff/dialog-update
   styleUrls: ['./staff-management.component.css']
 })
 
-
-
 export class StaffManagementComponent implements OnInit {
-
-  constructor(public dialog: MatDialog, private staff: StaffManagementService, private toastr: ToastrService) { }
-
+  
   displayedColumns: string[] = ['first_name', 'last_name', 'phone', 'email', 'action'];
   dataSource!: MatTableDataSource<any>;
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   staffs: any;
   id: any;
-
+  
+  constructor(public dialog: MatDialog, private staff: StaffManagementService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getstaff();

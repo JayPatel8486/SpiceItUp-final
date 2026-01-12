@@ -15,7 +15,7 @@
     <div class="search-section">
       <div class="search-wrapper">
         <mat-icon class="search-icon">search</mat-icon>
-        <input type="text" placeholder="Search for restaurants, dishes..." class="search-input">
+        <input type="text" placeholder="Search for dishes..." class="search-input">
         <button class="search-btn">
           <mat-icon>tune</mat-icon>
         </button>
@@ -28,24 +28,24 @@
         <mat-icon>location_on</mat-icon>
         <span>Deliver to</span>
       </button>
-      
+
       <button class="action-btn cart-btn" routerLink="/cart">
-        <mat-icon matBadge="3" matBadgeColor="warn">shopping_cart</mat-icon>
+        <mat-icon matBadge={{this.totalCartItems}} matBadgeColor="warn">shopping_cart</mat-icon>
         <span>Cart</span>
       </button>
-      
+
       <button class="primary-btn table-btn" routerLink="/table_booking">
         <mat-icon>restaurant</mat-icon>
         Book Table
       </button>
-      
+
       <div class="profile-menu">
         <button class="profile-btn" (click)="toggleProfileMenu()">
           <mat-icon>account_circle</mat-icon>
           <span>Profile</span>
           <mat-icon>keyboard_arrow_down</mat-icon>
         </button>
-        
+
         <!-- Profile Dropdown -->
         <div class="profile-dropdown" [class.show]="showProfileMenu">
           <a routerLink="/userprofile" class="dropdown-item">
@@ -55,10 +55,6 @@
           <a routerLink="/order" class="dropdown-item">
             <mat-icon>shopping_bag</mat-icon>
             <span>My Orders</span>
-          </a>
-          <a routerLink="/settings" class="dropdown-item">
-            <mat-icon>settings</mat-icon>
-            <span>Settings</span>
           </a>
           <div class="dropdown-divider"></div>
           <button class="dropdown-item logout-item" (click)="onLogOut()">

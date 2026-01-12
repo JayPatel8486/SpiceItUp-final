@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../services/profile-data.service';
-import { FormControl, NgModel, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./profile.component.css'],
 })
 
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   users: any = [];
   toggle = true;
   uid = localStorage.getItem('userId');
@@ -33,56 +33,46 @@ export class ProfileComponent {
     this.updateProfileForm.disable();
     // console.log(this.uid);
     this.userData.addProfile(this.uid).subscribe((data: any) => {
-      console.warn('data', data);
+      // console.warn('data', data);
       this.users = data;
-      console.log('new Data: ', this.users.user.first_name);
+      // console.log('new Data: ', this.users.user.first_name);
 
     });
-    this.getAllUserOrders();
+    this.getAllUserOrders();    
   }
 
   getAllUserOrders() {
     this.ApiService.getLoginUserData(this.uid).subscribe((tableOrders: any) => {
-      console.log("tableOrders", tableOrders);
+      // console.log("tableOrders", tableOrders);
       this.userOrders = tableOrders;
     });
   }
 
   updateProfile() {
-
     this.toggle = !this.toggle;
     if (!this.toggle) {
       this.updateProfileForm.enable();
     } else {
       this.updateProfileForm.disable();
     }
-
   }
 
   btnUpdate() {
-
     this.updateProfile();
-
-    const data = this.updateProfileForm.value;
+    const data = this.updateProfileForm.value;    
     console.log(this.users.user._id);
     this.userData.putProfile(data, this.users.user._id);
     this.toastr.success("Profile Updated successfully", "", { timeOut: 1700, progressBar: true, progressAnimation: 'increasing' });
-
-
   }
 
   // btndelete(){
-
   //   const data = this.updateProfileForm.value;
   //   console.log(data);
   //   this.userData.deleteProfile(data,this.users.user._id);
   //   this.toastr.error("Profile deleted successfully","",{timeOut:1500 , progressBar:true , progressAnimation:'increasing'});
-
   // }
 
   btndelete() {
-
-
     const confirmDialog = this.dialog.open(DialogboxComponent, {
       data: {
         title: 'Confirm Remove Employee',
@@ -91,19 +81,13 @@ export class ProfileComponent {
     });
     confirmDialog.afterClosed().subscribe((result: any) => {
       if (result === true) {
-
         const data = this.updateProfileForm.value;
         console.log(data);
         this.userData.deleteProfile(data, this.users.user._id);
         this._router.navigate(['/']);
       }
-
-
     });
   }
-
-
-
 }
 
 

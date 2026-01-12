@@ -12,11 +12,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   sidenav!: MatSidenav;
   constructor(private route: Router, private observer: BreakpointObserver) { }
   onLogOut() {
-    localStorage.removeItem('loginUser');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('bookingId');
-    localStorage.removeItem('lastAction');
+    localStorage.clear();
     this.route.navigate(['']);
   }
 

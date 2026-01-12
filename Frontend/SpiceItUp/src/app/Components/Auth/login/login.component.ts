@@ -12,8 +12,8 @@ import { LoginService } from 'src/app/services/login.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-const MINUTES_UNITL_AUTO_LOGOUT = 1; // in Minutes
-const CHECK_INTERVALL = 1000; // in ms
+const MINUTES_UNITL_AUTO_LOGOUT = 60; // in Minutes
+const CHECK_INTERVALL = 100000; // in ms
 const STORE_KEY = 'lastAction';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
       error: (err) => {
         if (err.error.message === "Invalid password") {
         this.toastr.error(`The email or password is incorrect. Account will lock after ${err.error.remainAttempt - 1} incorrect attempts(s).`, '' ,{
-          timeOut: 1000, progressBar: true, progressAnimation: 'increasing'
+          timeOut: 2000, progressBar: true, progressAnimation: 'increasing'
         })
         }
         else { 

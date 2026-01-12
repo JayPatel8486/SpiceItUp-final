@@ -1,26 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { CartService } from 'src/app/services/cart.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   showProfileMenu = false;
+  totalCartItems: number = 0;
+  constructor(private router: Router, private cartService: CartService) {}
 
-  constructor(private router: Router) {}
+  ngOnInit(): void {
+    this.cartService.getProducts().subscribe((res: any) => {
+      this.totalCartItems = res.length;
+    });
+  }
 
   toggleProfileMenu() {
     this.showProfileMenu = !this.showProfileMenu;
   }
 
   onLogOut() {
-    localStorage.removeItem('loginUser');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('bookingId');
-    localStorage.removeItem('lastAction');
+    localStorage.clear();
     this.router.navigate(['']);
   }
 }

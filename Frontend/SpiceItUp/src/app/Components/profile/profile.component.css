@@ -7,7 +7,7 @@
 .profile-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px 10px;
 }
 
 .profile-content {
@@ -164,7 +164,7 @@
 
 /* Profile Form */
 .profile-form-section {
-  padding: 40px;
+  padding: 30px;
 }
 
 .profile-form {
@@ -204,8 +204,8 @@
 }
 
 .gender-section {
-  margin-bottom: 32px;
-  padding: 24px;
+  margin-bottom: 22px;
+  padding: 15px;
   background: #f8f9fa;
   border-radius: 12px;
   border: 2px solid #e9ecef;
@@ -216,7 +216,7 @@
   font-size: 16px;
   font-weight: 600;
   color: #2d3436;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .gender-group {
